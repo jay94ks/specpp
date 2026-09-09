@@ -46,8 +46,9 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/collections/`](std/collections/) | `list`/`Set`/`Queue`/`Stack`/`Dictionary` |
 | [`std/concurrency/`](std/concurrency/) | 원자적 값·잠금·스레드·스레드 안전 컬렉션 |
 | [`std/io/`](std/io/) | 파일·디렉터리 |
-| [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스 등 (.NET `System`에 대응) |
+| [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스·디버깅 등 (.NET `System`에 대응) |
 | [`std/net/`](std/net/) | URI·DNS·TCP·HTTP (.NET `System.Net`에 대응) |
+| [`std/ui/`](std/ui/) | GUI 위젯 (`Window`/`Button`/`Label`) |
 | [`std/windows/`](std/windows/) · [`std/linux/`](std/linux/) · [`std/macos/`](std/macos/) | OS별 API (레지스트리, 네이티브 대화 상자 등) |
 | [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
 | [`std/native/`](std/native/) | C/C++ 표준 라이브러리 자체에 대한 실체 명세 |

@@ -82,6 +82,13 @@
 | `std/system/dialog.md` | 알림·확인 대화 상자 (추상 계약) |
 | `std/system/debug.md` | 실행 중 조건 검사(assert)·진단 로그, 스펙 추적(4.7절) |
 
+### GUI (`ui/`)
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/ui/widgets.md` | 창·버튼·라벨 (`Window`/`Button`/`Label`), 클릭 이벤트 |
+| `std/ui/canvas.md` | 2D 캔버스 창(`CanvasWindow`/`Canvas`), 도형·텍스트 직접 그리기, 키 입력 |
+
 ### 네트워킹 (`net/`, .NET `System.Net`에 대응)
 
 | 경로 | 제공하는 것 |
@@ -119,6 +126,8 @@
 | `std/windows/registry.md` | 레지스트리 읽기·쓰기 |
 | `std/windows/messagebox.md` | 네이티브 메시지 박스 (`Dialog` 구현) |
 | `std/windows/consolecontrol.md` | 콘솔 제어 이벤트(Ctrl+C 등) 처리 |
+| `std/windows/win32.md` | 순수 Win32 API로 창·버튼 GUI 만들기 (`kind: native`) |
+| `std/windows/direct2d.md` | DirectX(Direct2D/DirectWrite) 2D 렌더링 (`kind: native`) |
 
 각 OS 전용 패키지의 `platform` 필드에는 다른 OS를 대상으로 할 때 쓸 수 있는
 대체 구현이 `-> fallback: ...`으로 표시되어 있습니다 (3.10절).

@@ -632,7 +632,10 @@ AI는 타겟 언어·스택의 관용적인 pub-sub 메커니즘(메시지 버�
 ```
 
 API의 경우 `## API`에 엔드포인트 표, 라이브러리의 경우 `## Function`에 함수 시그니처
-목록을 사용합니다. 형식은 표(table)를 권장하되 목록으로 대체 가능합니다.
+목록을 사용합니다. GUI로 노출되는 프로그램은 `## GUI`에 위젯([`std/ui/widgets.md`](std/ui/widgets.md)
+등)과 그 위젯이 어떤 `Behavior`의 Feature를 실행하는지 매핑하는 표를 씁니다
+(예: [`examples/rock-paper-scissors.md`](examples/rock-paper-scissors.md) 참고).
+형식은 표(table)를 권장하되 목록으로 대체 가능합니다.
 
 ### 3.7 Examples 섹션 표기
 
@@ -962,5 +965,11 @@ Method/Feature 안에서 발생하는 모든 예외에 동일하게 적용됩니
 
 ## 6. 참고 예제
 
-[`examples/todo-cli.md`](examples/todo-cli.md) — 단일 파일 패키지 형태로 이 문서의
-표기법을 실제로 사용한 전체 예제입니다.
+- [`examples/todo-cli.md`](examples/todo-cli.md) — 단일 파일 패키지 형태로 이 문서의
+  표기법을 실제로 사용한 전체 예제입니다 (CLI 노출).
+- [`examples/rock-paper-scissors.md`](examples/rock-paper-scissors.md) — `# Interface`의
+  `## GUI`(3.6절)와 [`std/ui/widgets.md`](std/ui/widgets.md)(버튼 기반 위젯)를
+  쓴 GUI 예제입니다.
+- [`examples/2048.md`](examples/2048.md) — [`std/ui/canvas.md`](std/ui/canvas.md)
+  (직접 그리는 2D 캔버스)와 `kind: native` 실체 명세
+  ([`std/windows/direct2d.md`](std/windows/direct2d.md))를 함께 쓴 GUI 예제입니다.
