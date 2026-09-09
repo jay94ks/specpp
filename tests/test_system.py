@@ -1,5 +1,5 @@
 import unittest
-from spp_std.system_ import Math_, Random_, TimeSpan, DateTime, Guid, Convert, Exception_, Environment
+from spp_std.system_ import Math_, Random_, TimeSpan, DateTime, Guid, Convert, Exception_, Environment, Debug, DebugAssertionError
 from spp_std.system_process import Process
 import sys
 
@@ -70,6 +70,34 @@ class ExceptionTest(unittest.TestCase):
             raise ValidationError("title은 필수입니다")
         except ValidationError as e:
             self.assertEqual(e.message, "title은 필수입니다")
+
+    def test_specref_carries_spec_location(self):
+        class ValidationError(Exception_):
+            pass
+
+        try:
+            raise ValidationError(
+                "title은 필수입니다", "examples/todo-cli.md#Behavior.할 일 추가"
+            )
+        except ValidationError as e:
+            self.assertEqual(e.specRef, "examples/todo-cli.md#Behavior.할 일 추가")
+
+    def test_specref_defaults_to_none(self):
+        try:
+            raise Exception_("문제 발생")
+        except Exception_ as e:
+            self.assertIsNone(e.specRef)
+
+
+class DebugTest(unittest.TestCase):
+    def test_assert_passes_silently(self):
+        Debug.assert_(True, "여기 오면 안 됨")  # 예외를 던지지 않아야 한다
+
+    def test_assert_fails_with_message_and_specref(self):
+        with self.assertRaises(DebugAssertionError) as ctx:
+            Debug.assert_(False, "빈 목록이면 안 됨", "std/collections/queue.md#Interface.ConcurrentQueue")
+        self.assertEqual(ctx.exception.message, "빈 목록이면 안 됨")
+        self.assertEqual(ctx.exception.specRef, "std/collections/queue.md#Interface.ConcurrentQueue")
 
 
 class EnvironmentTest(unittest.TestCase):

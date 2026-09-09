@@ -8,9 +8,10 @@ import sys as _sys
 
 
 class Exception_(Exception):
-    def __init__(self, message):
+    def __init__(self, message, specRef=None):
         super().__init__(message)
         self.message = message
+        self.specRef = specRef
 
 
 class Math_:
@@ -167,6 +168,24 @@ class Convert:
     @staticmethod
     def toString(value):
         return str(value)
+
+
+class DebugAssertionError(AssertionError):
+    def __init__(self, message, specRef=None):
+        super().__init__(message)
+        self.message = message
+        self.specRef = specRef
+
+
+class Debug:
+    @staticmethod
+    def assert_(condition, message, specRef=None):
+        if not condition:
+            raise DebugAssertionError(message, specRef)
+
+    @staticmethod
+    def trace(message):
+        _sys.stderr.write(f"[trace] {message}\n")
 
 
 class Environment:

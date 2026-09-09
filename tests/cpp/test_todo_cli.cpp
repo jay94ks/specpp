@@ -27,6 +27,21 @@ TEST(test_blank_title_fails) {
     CHECK(threw);
 }
 
+// SPEC.md 4.7절: specRef는 스펙 작성자가 적는 게 아니라 AI가 코드 생성
+// 시점에 자동으로 채운다. 여기서는 그 결과를 검증한다.
+TEST(test_blank_title_error_carries_specref) {
+    TodoApp app;
+    bool threw = false;
+    try {
+        app.add("   ");
+    } catch (const ValidationError& e) {
+        threw = true;
+        CHECK(e.specRef.has_value());
+        CHECK_EQ(*e.specRef, std::string("examples/todo-cli.md#Behavior.할 일 추가"));
+    }
+    CHECK(threw);
+}
+
 TEST(test_done_task_excluded_from_default_list) {
     TodoApp app;
     app.add("우유 사기");
@@ -51,6 +66,19 @@ TEST(test_done_missing_id_fails) {
     } catch (const NotFoundError& e) {
         threw = true;
         CHECK_EQ(e.message, std::string("Task #999를 찾을 수 없습니다"));
+    }
+    CHECK(threw);
+}
+
+TEST(test_done_missing_id_error_carries_specref) {
+    TodoApp app;
+    bool threw = false;
+    try {
+        app.done(999);
+    } catch (const NotFoundError& e) {
+        threw = true;
+        CHECK(e.specRef.has_value());
+        CHECK_EQ(*e.specRef, std::string("examples/todo-cli.md#Behavior.할 일 완료 처리"));
     }
     CHECK(threw);
 }

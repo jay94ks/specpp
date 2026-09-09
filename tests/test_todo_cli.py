@@ -22,6 +22,14 @@ class TodoCliExamplesTest(unittest.TestCase):
             app.add("   ")
         self.assertEqual(ctx.exception.message, "title은 필수입니다")
 
+    def test_blank_title_error_carries_specref(self):
+        # SPEC.md 4.7절: specRef는 스펙 작성자가 적는 게 아니라 AI가 코드
+        # 생성 시점에 자동으로 채운다. 여기서는 그 결과를 검증한다.
+        app = TodoApp()
+        with self.assertRaises(ValidationError) as ctx:
+            app.add("   ")
+        self.assertEqual(ctx.exception.specRef, "examples/todo-cli.md#Behavior.할 일 추가")
+
     def test_done_task_excluded_from_default_list(self):
         app = TodoApp()
         app.add("우유 사기")
@@ -40,6 +48,12 @@ class TodoCliExamplesTest(unittest.TestCase):
         with self.assertRaises(NotFoundError) as ctx:
             app.done(999)
         self.assertEqual(ctx.exception.message, "Task #999를 찾을 수 없습니다")
+
+    def test_done_missing_id_error_carries_specref(self):
+        app = TodoApp()
+        with self.assertRaises(NotFoundError) as ctx:
+            app.done(999)
+        self.assertEqual(ctx.exception.specRef, "examples/todo-cli.md#Behavior.할 일 완료 처리")
 
 
 class TodoTaskRequiredTest(unittest.TestCase):

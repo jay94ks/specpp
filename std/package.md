@@ -80,6 +80,7 @@
 | `std/system/process.md` | 외부 프로세스 실행·대기·종료 |
 | `std/system/appdirs.md` | 앱 설정·캐시·데이터 경로 (추상 계약) |
 | `std/system/dialog.md` | 알림·확인 대화 상자 (추상 계약) |
+| `std/system/debug.md` | 실행 중 조건 검사(assert)·진단 로그, 스펙 추적(4.7절) |
 
 ### 네트워킹 (`net/`, .NET `System.Net`에 대응)
 

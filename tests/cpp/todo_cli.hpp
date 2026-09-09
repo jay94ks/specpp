@@ -1,21 +1,34 @@
 // examples/todo-cli.md reference implementation (C++17).
+//
+// ValidationError/NotFoundError는 std/system/exception.md의 Exception을
+// 흉내낸다. specRef는 스펙 작성자가 적는 게 아니라 AI가 코드 생성 시점에
+// "지금 번역 중인 Feature가 무엇인지" 알고 자동으로 채운 값이다(SPEC.md
+// 4.7절). 각 메서드 위의 spp-source 주석도 같은 절차로 자동 삽입된다.
 #pragma once
 #include <algorithm>
 #include <chrono>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
-class ValidationError : public std::runtime_error {
+class SppException : public std::runtime_error {
 public:
     std::string message;
-    explicit ValidationError(const std::string& msg) : std::runtime_error(msg), message(msg) {}
+    std::optional<std::string> specRef;
+
+    explicit SppException(const std::string& msg, std::optional<std::string> ref = std::nullopt)
+        : std::runtime_error(msg), message(msg), specRef(std::move(ref)) {}
 };
 
-class NotFoundError : public std::runtime_error {
+class ValidationError : public SppException {
 public:
-    std::string message;
-    explicit NotFoundError(const std::string& msg) : std::runtime_error(msg), message(msg) {}
+    using SppException::SppException;
+};
+
+class NotFoundError : public SppException {
+public:
+    using SppException::SppException;
 };
 
 class Task {
@@ -43,10 +56,11 @@ class TodoApp {
     std::vector<Task> tasks_;
 
 public:
+    // spp-source: examples/todo-cli.md#Behavior.할 일 추가
     Task& add(const std::string& rawTitle) {
         std::string title = trim(rawTitle);
         if (title.empty()) {
-            throw ValidationError("title은 필수입니다");
+            throw ValidationError("title은 필수입니다", "examples/todo-cli.md#Behavior.할 일 추가");
         }
         int maxId = 0;
         for (auto& t : tasks_) maxId = std::max(maxId, t.id);
@@ -54,6 +68,7 @@ public:
         return tasks_.back();
     }
 
+    // spp-source: examples/todo-cli.md#Behavior.할 일 완료 처리
     Task& done(int id) {
         for (auto& t : tasks_) {
             if (t.id == id) {
@@ -61,7 +76,8 @@ public:
                 return t;
             }
         }
-        throw NotFoundError("Task #" + std::to_string(id) + "를 찾을 수 없습니다");
+        throw NotFoundError("Task #" + std::to_string(id) + "를 찾을 수 없습니다",
+                             "examples/todo-cli.md#Behavior.할 일 완료 처리");
     }
 
     std::vector<Task> list(bool all) const {
