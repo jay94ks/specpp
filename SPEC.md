@@ -973,3 +973,8 @@ Method/Feature 안에서 발생하는 모든 예외에 동일하게 적용됩니
 - [`examples/2048.md`](examples/2048.md) — [`std/ui/canvas.md`](std/ui/canvas.md)
   (직접 그리는 2D 캔버스)와 `kind: native` 실체 명세
   ([`std/windows/direct2d.md`](std/windows/direct2d.md))를 함께 쓴 GUI 예제입니다.
+- [`examples/notepad.md`](examples/notepad.md) — 메뉴 막대·여러 줄 텍스트 상자·
+  파일 대화 상자([`std/ui/menu.md`](std/ui/menu.md),
+  [`std/ui/textbox.md`](std/ui/textbox.md),
+  [`std/ui/filedialog.md`](std/ui/filedialog.md))를 조합한, 더 큰 규모의
+  GUI 예제입니다.

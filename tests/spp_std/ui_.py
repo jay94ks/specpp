@@ -13,9 +13,17 @@ class Window:
         self._root.geometry(f"{width}x{height}")
         self._root.withdraw()  # 테스트/헤드리스 실행 중 화면에 실제로 뜨지 않게 한다.
 
-    def addChild(self, widget):
+    def addChild(self, widget, fill=False, side=tk.TOP):
+        """fill=True면 남는 공간을 채우도록 배치한다 (예: 본문 텍스트 상자).
+
+        기본값(fill=False)은 기존 동작(옵션 없는 pack())과 같다 — 이미
+        검증된 rps.py/app2048.py의 배치를 바꾸지 않는다.
+        """
         widget._materialize(self._root)
-        widget._tk.pack()
+        if fill:
+            widget._tk.pack(fill=tk.BOTH, expand=True, side=side)
+        else:
+            widget._tk.pack()
 
     def show(self):
         self._root.deiconify()

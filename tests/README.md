@@ -11,8 +11,9 @@
 ## 구성
 
 - `spp_std/` — `std/`의 각 패키지를 Python으로 옮겨 적은 참조 구현
-  (`spp_std/ui_.py`는 `std/ui/widgets.md`를, `spp_std/canvas_.py`는
-  `std/ui/canvas.md`를 tkinter로 옮긴 것).
+  (`ui_.py`는 `std/ui/widgets.md`, `canvas_.py`는 `std/ui/canvas.md`,
+  `textbox_.py`/`menu_.py`/`filedialog_.py`는 각각 `std/ui/textbox.md`/
+  `menu.md`/`filedialog.md`를 tkinter로 옮긴 것).
 - `todo_cli.py` — [`examples/todo-cli.md`](../examples/todo-cli.md)의 참조 구현 (CLI).
 - `rps.py` — [`examples/rock-paper-scissors.md`](../examples/rock-paper-scissors.md)의
   참조 구현 (버튼 GUI).
@@ -20,11 +21,14 @@
   구현. `game2048.py`는 GUI와 무관한 순수 규칙, `app2048.py`는
   `std/ui/canvas.md` 기반 GUI 배선(Windows/DirectX 대신 tkinter Canvas로
   검증 — 2048.md의 Constraints가 허용하는 대체 렌더러).
-- `run_rps.py`/`run_2048.py` — 자동 테스트가 아니라, 실제 창을 띄워서 눈으로
-  확인하기 위한 실행 스크립트다.
+- `notepad.py`/`app_notepad.py` — [`examples/notepad.md`](../examples/notepad.md)의
+  참조 구현. `notepad.py`는 GUI와 무관한 순수 로직(열기/저장/dirty 추적/찾기·
+  바꾸기), `app_notepad.py`는 메뉴·텍스트 상자·파일 대화 상자 배선이다.
+- `run_rps.py`/`run_2048.py`/`run_notepad.py` — 자동 테스트가 아니라, 실제
+  창을 띄워서 눈으로 확인하기 위한 실행 스크립트다.
 - `test_*.py` — 각 패키지의 `Examples`를 그대로 옮긴 단위 테스트. GUI가 있는
   것들은 실제 창을 띄우지 않고(`Window`/`CanvasWindow`가 생성 즉시
-  `withdraw`한다) 위젯 생성·이벤트 배선·게임 규칙만 검증한다.
+  `withdraw`한다) 위젯 생성·이벤트 배선·규칙만 검증한다.
 
 ## 실행
 
@@ -36,6 +40,7 @@ python -m unittest discover -v
 실제 GUI를 보려면:
 
 ```bash
-python run_rps.py     # 가위바위보
-python run_2048.py    # 2048
+python run_rps.py       # 가위바위보
+python run_2048.py      # 2048
+python run_notepad.py   # 메모장
 ```

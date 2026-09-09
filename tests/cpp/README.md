@@ -33,6 +33,14 @@
   `kind: native`)만으로 만든 진짜 **DirectX(Direct2D/DirectWrite)** 렌더링
   GUI다 — 프레임워크 없음. `rps_win32.cpp`와 마찬가지로 수동 확인용이며
   `run.sh` 목록에는 없다.
+- `notepad_win32.cpp` — [`examples/notepad.md`](../../examples/notepad.md)의
+  `# Interface` > `## GUI` 참조 구현. 순수 Win32 `EDIT` 컨트롤 + 네이티브
+  메뉴(`HMENU`) + 공용 파일 대화 상자(`GetOpenFileNameW`/`GetSaveFileNameW`)만
+  으로 만들었다. 새로 만들기/열기/저장/다른 이름으로 저장/끝내기(저장 확인
+  포함)와 잘라내기/복사/붙여넣기/실행 취소/모두 선택/상태 표시줄(줄·열)을
+  다룬다 — 찾기/바꾸기/이동 대화 상자와 자동 줄 바꿈 토글은 시간 관계상
+  Python 버전(`tests/app_notepad.py`)에만 구현했다. 수동 확인용, `run.sh`
+  목록에는 없다.
 - `test_*.cpp` — 각 패키지의 `Examples`를 그대로 옮긴 테스트.
 - `test_native_stl.cpp` — `std/native/cpp/{memory,containers,iostream}.md`
   (`kind: native` 실체 명세) 전체가 실제 STL API와 정확히 일치하는지 확인한다.

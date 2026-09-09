@@ -88,6 +88,9 @@
 |---|---|
 | `std/ui/widgets.md` | 창·버튼·라벨 (`Window`/`Button`/`Label`), 클릭 이벤트 |
 | `std/ui/canvas.md` | 2D 캔버스 창(`CanvasWindow`/`Canvas`), 도형·텍스트 직접 그리기, 키 입력 |
+| `std/ui/textbox.md` | 여러 줄 텍스트 편집 상자 (`TextBox`) |
+| `std/ui/menu.md` | 창 메뉴 막대 (`MenuBar`/`Menu`/`MenuItem`) |
+| `std/ui/filedialog.md` | 네이티브 파일 열기/저장 대화 상자 |
 
 ### 네트워킹 (`net/`, .NET `System.Net`에 대응)
 
