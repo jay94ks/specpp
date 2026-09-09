@@ -1,0 +1,9 @@
+# app_doom_gl.py(examples/doom/render.md의 실제 OpenGL 3.3 렌더러)에만 필요하다.
+# 이 저장소의 나머지 모든 Python 코드는 표준 라이브러리만 쓴다 — 이 파일이
+# 유일한 예외다(raw OpenGL 자체가 표준 라이브러리로는 다룰 수 없는 실제
+# 그래픽 API이기 때문, examples/doom/render.md 참조).
+#
+#   pip install -r requirements-gl.txt
+PyOpenGL>=3.1
+PyOpenGL_accelerate>=3.1
+pygame>=2.6

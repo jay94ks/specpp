@@ -3,3 +3,4 @@ __pycache__/
 *.exe
 *.o
 tests/cpp/*.log
+tests/cpp/tmp_*.wad
