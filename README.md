@@ -47,9 +47,11 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/concurrency/`](std/concurrency/) | 원자적 값·잠금·스레드·스레드 안전 컬렉션 |
 | [`std/io/`](std/io/) | 파일·디렉터리 |
 | [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스·디버깅 등 (.NET `System`에 대응) |
-| [`std/net/`](std/net/) | URI·DNS·TCP·HTTP (.NET `System.Net`에 대응) |
-| [`std/ui/`](std/ui/) | GUI 위젯 (`Window`/`Button`/`Label`) |
-| [`std/windows/`](std/windows/) · [`std/linux/`](std/linux/) · [`std/macos/`](std/macos/) | OS별 API (레지스트리, 네이티브 대화 상자 등) |
+| [`std/net/`](std/net/) | URI·DNS·TCP·UDP·HTTP (.NET `System.Net`에 대응) |
+| [`std/ui/`](std/ui/) | GUI 위젯·캔버스·메뉴·텍스트 상자·파일 대화 상자 |
+| [`std/graphics/`](std/graphics/) | OpenGL 텍스처 렌더링 (`kind: native`, 플랫폼 무관) |
+| [`std/audio/`](std/audio/) | OpenAL 위치 기반 효과음 (`kind: native`, 플랫폼 무관) |
+| [`std/windows/`](std/windows/) · [`std/linux/`](std/linux/) · [`std/macos/`](std/macos/) | OS별 API (레지스트리, Direct3D/DirectSound, 네이티브 대화 상자 등) |
 | [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
 | [`std/native/`](std/native/) | C/C++ 표준 라이브러리 자체에 대한 실체 명세 |
 

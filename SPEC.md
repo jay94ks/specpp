@@ -261,6 +261,7 @@ SPP의 타입 표기는 **C++ 스타일의 명시적 타입 선언을 기본으�
 | `auto` | **타입 추론** — 선언 시점에 오른쪽 값으로부터 타입을 유추 (변수·상수 선언 전용) |
 | `any` | 어떤 타입의 값이든 담을 수 있음(동적 타입). `auto`와 달리 파라미터·반환 타입 등 타입이 오는 어느 자리에나 쓸 수 있다 |
 | `(T1, T2, ...) -> R` | **함수 타입**(콜백/델리게이트 리터럴) — 이런 시그니처의 함수를 값으로 가짐 |
+| `(T1, T2, ...)` | **튜플 타입**(`->` 없음) — 이름 없는 값 여러 개를 한 번에 묶어 반환·전달할 때 씀. 이름을 붙여 재사용하고 싶으면 대신 클래스를 만든다 |
 | `ClassName` | 다른 클래스에 대한 참조 |
 | `ClassName<T>` | **제네릭 타입** — 타입 매개변수를 받는 클래스·인터페이스에 구체 타입을 채워 씀 |
 
@@ -978,3 +979,12 @@ Method/Feature 안에서 발생하는 모든 예외에 동일하게 적용됩니
   [`std/ui/textbox.md`](std/ui/textbox.md),
   [`std/ui/filedialog.md`](std/ui/filedialog.md))를 조합한, 더 큰 규모의
   GUI 예제입니다.
+- [`examples/doom/`](examples/doom/) — id Software DOOM(1993) 엔진을 원본
+  구조에 충실하게 옮긴 다중 파일 패키지 예제입니다(1절의 `package.md` +
+  `# Files` 관례를 실제로 쓴 첫 예제). 렌더링은 셰이더·버텍스 버퍼 기반의
+  [`std/graphics/opengl3.md`](std/graphics/opengl3.md) 또는
+  [`std/windows/direct3d11.md`](std/windows/direct3d11.md)로 대상을 고를
+  수 있습니다(더 단순한 레거시 즉시 모드
+  [`std/graphics/opengl.md`](std/graphics/opengl.md)/
+  [`std/windows/direct3d.md`](std/windows/direct3d.md)도 여전히 유효한
+  대안입니다).

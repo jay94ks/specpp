@@ -101,6 +101,7 @@
 | `std/net/dns.md` | 호스트 이름 조회 |
 | `std/net/tcp.md` | TCP 클라이언트·리스너 |
 | `std/net/httpclient.md` | HTTP 요청·응답 |
+| `std/net/udp.md` | 연결 없는 데이터그램(UDP) 통신 |
 
 ### POSIX 공통 (`posix/`, `platform: linux, macos` — 3.10절)
 
@@ -131,9 +132,25 @@
 | `std/windows/consolecontrol.md` | 콘솔 제어 이벤트(Ctrl+C 등) 처리 |
 | `std/windows/win32.md` | 순수 Win32 API로 창·버튼 GUI 만들기 (`kind: native`) |
 | `std/windows/direct2d.md` | DirectX(Direct2D/DirectWrite) 2D 렌더링 (`kind: native`) |
+| `std/windows/direct3d.md` | DirectX(Direct3D 9) 고정 함수 텍스처 사각형 렌더링 (`kind: native`) |
+| `std/windows/direct3d11.md` | DirectX(Direct3D 11) 셰이더·버텍스 버퍼 기반 렌더링 (`kind: native`) |
+| `std/windows/directsound.md` | DirectX(DirectSound) 위치 기반 효과음 재생 (`kind: native`) |
 
 각 OS 전용 패키지의 `platform` 필드에는 다른 OS를 대상으로 할 때 쓸 수 있는
 대체 구현이 `-> fallback: ...`으로 표시되어 있습니다 (3.10절).
+
+### 그래픽스 (`graphics/`, `kind: native`, 플랫폼 무관)
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/graphics/opengl.md` | 텍스처 사각형 그리기 (레거시 OpenGL 1.x 즉시 모드) |
+| `std/graphics/opengl3.md` | 셰이더·버텍스 버퍼 기반 렌더링 (OpenGL 3.3+ 코어 프로파일) |
+
+### 오디오 (`audio/`, `kind: native`, 플랫폼 무관)
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/audio/openal.md` | 위치 기반 효과음 재생 (OpenAL) |
 
 ### 네이티브 실체 명세 (`native/`, `kind: native` — 1.2절)
 
