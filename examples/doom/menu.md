@@ -25,8 +25,9 @@
 메서드:
 - render(renderer: Doom.Renderer.Backend) -> void
   설명: 3D 장면 렌더링을 건너뛰고, 대신 이 메뉴의 배경 이미지와 각
-  `items`를 세로로 나열해
-  [`Doom.Renderer.Backend.drawUIOverlay`](render.md)로 그린다.
+  `items`를 세로로 나열해 그린다. 선택 강조 배경 같은 도형은
+  [`Doom.Renderer.Backend.drawUIShapes`](render.md)로, 항목 이름 글자는
+  [`Doom.Renderer.Backend.drawUIText`](render.md)로 그린다.
   `selectedIndex`의 항목은 강조 표시한다(원본은 옆에 깜빡이는 해골
   커서를 그린다).
 

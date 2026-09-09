@@ -19,7 +19,8 @@
 - render(map: Doom.Map, player: Doom.Player, renderer: Doom.Renderer.Backend) -> void
   설명: `revealedLines`를 화면 좌표로 변환해 얇은 선(폭이 1픽셀인
   사각형으로 근사한다)으로 그린다. 매 프레임 선 목록이 바뀔 수 있으므로
-  [`Doom.Renderer.Backend.drawUIOverlay`](render.md)로 그린다. 비밀
+  [`Doom.Renderer.Backend.drawUIShapes`](render.md)로 그린다(선이라
+  텍스처가 필요 없다). 비밀
   문처럼 아직 안 밝혀진 linedef는 그리지 않는다. 플레이어 위치는 화살표
   모양으로 표시한다.
 

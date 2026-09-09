@@ -19,8 +19,9 @@
 메서드:
 - render(renderer: Doom.Renderer.Backend) -> void
   설명: "MAP01 완료" 같은 제목과, 위 세 퍼센트·시간을 숫자가 하나씩
-  올라가는 애니메이션으로
-  [`Doom.Renderer.Backend.drawUIOverlay`](render.md)로 보여준다(원본
+  올라가는 애니메이션으로 보여준다 — 퍼센트 막대 같은 도형은
+  [`Doom.Renderer.Backend.drawUIShapes`](render.md)로, 제목·숫자 글자는
+  [`Doom.Renderer.Backend.drawUIText`](render.md)로 그린다(원본
   특유의 카운트업 연출).
 
 ## Class: Doom.Finale

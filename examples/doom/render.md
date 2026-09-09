@@ -70,12 +70,19 @@ BSP 트리([`Doom.Map.BspNode`](map.md))는 그래도 두 가지로 여전히 �
   설명: 빌보드 사각형 하나를 `instanceCount`번(인스턴스마다
   위치·크기·텍스처 레이어가 담긴 `instanceDataRaw`를 참고해) 한 드로우
   콜로 그린다. 몬스터·아이템 스프라이트를 그릴 때 쓴다.
-- drawUIOverlay(quadsRaw: bytes, quadCount: int, textureId: int) -> void
-  설명: [`hud.md`](hud.md)/[`menu.md`](menu.md)/[`automap.md`](automap.md)처럼
-  화면마다 내용이 계속 바뀌는 2D 오버레이(체력 숫자, 메뉴 글자, 지도 선
-  등)를 그린다 — 이런 요소는 정적이지 않으므로 매 프레임 작은 동적
-  버퍼로 다시 만들어 그린다(레벨 지오메트리처럼 한 번 올려두고 재사용하는
+- drawUIShapes(verticesRaw: bytes, vertexCount: int, primitive: enum(Triangles | Lines)) -> void
+  설명: [`hud.md`](hud.md)의 체력·방어구 막대, 얼굴, 열쇠 아이콘,
+  [`automap.md`](automap.md)의 지도 선처럼 텍스처 없이 정점 색만으로
+  그리는 2D 오버레이를 그린다. 매 프레임 내용이 바뀌므로 그때그때 작은
+  동적 버퍼로 다시 채운다(레벨 지오메트리처럼 한 번 올려두고 재사용하는
   대상이 아니다).
+- drawUIText(quadsRaw: bytes, quadCount: int, textureId: int) -> void
+  설명: 글자(숫자, 메뉴 항목 이름 등)를 그린다. OpenGL/Direct3D 자체에는
+  글꼴 렌더링이 없으므로, 대상 언어·플랫폼의 폰트 API(예: 실제 구현이
+  쓴 Python `pygame.font`, C++라면 `Direct2D`/`DirectWrite`나
+  FreeType)로 문자열을 비트맵으로 래스터라이즈한 뒤 `textureId`로
+  업로드하고, 그 텍스처를 씌운 사각형(들)을 그린다 — `drawUIShapes`와
+  달리 반드시 텍스처가 필요하다(아래 Constraints 참조).
 
 ## Class: Doom.Sprite
 
@@ -140,9 +147,17 @@ test_required Doom.Renderer {
 절차:
 1. `beginFrame()`을 호출하고, `Doom.Renderer.Backend.clear`로 색 버퍼와
    깊이 버퍼를 함께 지운다.
-2. `player.viewAngle`/`player.actor`의 위치로부터 뷰 행렬을, 시야각
-   (원본 기본값 90도)으로부터 투영 행렬을 계산해 곱한 뒤,
-   `Doom.Renderer.Backend.setUniformMat4`로 셰이더에 올린다.
+2. 뷰 행렬의 카메라 위치(눈높이)를 정한다: `player.actor.z` + 눈높이(원본
+   기본값 41 map 단위)를 쓰되, 지금 서 있는
+   [`Doom.Map.Sector`](map.md)의 `ceilingHeight`를 넘지 않게 자른다
+   (`min(actor.z + 눈높이, sector.ceilingHeight - 4)`) — 원본
+   `P_CalcHeight`가 하는 일과 같다. 이 클램프가 없으면 천장이 낮은
+   구간에서 카메라가 천장 지오메트리 안쪽으로 들어가 버려, 실제로는
+   막혀 있는 벽/천장을 마치 뚫고 들어간 것처럼 보이게 된다(수평 충돌은
+   멀쩡히 동작하는데도 그렇다 — `game.md`의 `Feature.이동과 충돌`과는
+   별개의, 순수히 카메라 쪽 버그다). `player.viewAngle`과 이 위치로부터
+   뷰 행렬을, 시야각(원본 기본값 90도)으로부터 투영 행렬을 계산해 곱한
+   뒤, `Doom.Renderer.Backend.setUniformMat4`로 셰이더에 올린다.
 3. `Feature.레벨 지오메트리 만들기`에서 미리 만들어 둔 텍스처 배치마다
    `Doom.Renderer.Backend.drawIndexed`를 한 번씩 호출한다 — 몇 개의
    서브섹터가 화면에 보이는지와 무관하게, 텍스처 배치 수만큼만 호출한다
@@ -159,6 +174,10 @@ test_required Doom.Renderer {
   - 두 벽이 화면에서 겹치는 경우, 그리는 순서(드로우 콜 순서)를 어떻게
     바꿔도 최종 화면은 항상 카메라에 더 가까운 벽이 보인다(깊이 테스트가
     보장한다) — 원본처럼 앞에서 뒤 순서로 그릴 필요가 없다.
+  - 카메라 눈높이는 지금 서 있는 섹터의 `ceilingHeight - 4`를 절대
+    넘지 않는다 — 아무리 낮은 천장 밑이라도(원본의 웅크린 통로 등)
+    카메라가 천장 지오메트리 안으로 들어가지 않는다.
+}
 
 ## Feature: 스프라이트 그리기
 
@@ -213,8 +232,15 @@ test_required Doom.Renderer {
   다만 그쪽이 훨씬 단순하므로, 아주 작은 맵을 빠르게 검증만 하고 싶다면
   여전히 유효한 선택이다(성능·확장성을 포기하는 대신 구현이 짧다).
 - HUD/메뉴/자동 지도처럼 매 프레임 내용이 바뀌는 2D 오버레이는
-  `drawUIOverlay`로 그린다 — 이건 레벨 지오메트리와 달리 "한 번 올리고
-  재사용" 대상이 아니라 매 프레임 새로 만드는 작은 동적 버퍼다.
+  `drawUIShapes`/`drawUIText`로 그린다 — 이건 레벨 지오메트리와 달리
+  "한 번 올리고 재사용" 대상이 아니라 매 프레임 새로 만드는 작은 동적
+  버퍼다.
+- `drawUIText`가 만드는 텍스처는 문자열마다(그리고 색마다) 다르므로,
+  같은 문자열을 다시 그릴 때 매번 폰트를 다시 래스터라이즈하지 않도록
+  (문자열, 색) 조합을 키로 텍스처를 캐시해 재사용하는 것을 권장한다 —
+  체력·탄약처럼 값이 자주 바뀌는 문자열은 캐시가 계속 늘어날 수 있으니,
+  실제 구현은 오래 안 쓰인 항목을 정리하는 정책을 둘 수 있다(이 명세는
+  구체적인 캐시 무효화 정책을 규정하지 않는다).
 
 # Examples
 

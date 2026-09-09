@@ -16,9 +16,12 @@
 메서드:
 - render(player: Doom.Player, renderer: Doom.Renderer.Backend) -> void
   설명: 화면 아래 띠 영역에 체력/탄약/장비 아이콘과 숫자를 그린다.
-  숫자·아이콘은 매 프레임 값이 바뀌는 2D 오버레이이므로
-  [`Doom.Renderer.Backend.drawUIOverlay`](render.md)로 그린다(레벨
-  지오메트리처럼 한 번 올려두고 재사용하는 대상이 아니다).
+  아이콘·막대·얼굴처럼 텍스처 없이 색만으로 그리는 부분은
+  [`Doom.Renderer.Backend.drawUIShapes`](render.md)로, 체력·탄약 같은
+  숫자는 글꼴 래스터라이즈가 필요하므로
+  [`Doom.Renderer.Backend.drawUIText`](render.md)로 그린다 — 둘 다 매
+  프레임 값이 바뀌므로(레벨 지오메트리처럼 한 번 올려두고 재사용하는
+  대상이 아니다) 그때그때 다시 만든다.
 
 # Behavior
 
