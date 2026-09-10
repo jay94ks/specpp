@@ -4,6 +4,7 @@
 
 - name: std
 - description: SPP 표준 라이브러리 전체 색인.
+- kind: index
 
 # Intent
 
@@ -329,9 +330,3 @@ WebSocket, 리버스 프록시, TLS, 비동기 실행 계층, 플러그인)에 �
 | `std/native/cpp/nhttp/tls.md` | OpenSSL 기반 TLS 컨텍스트 |
 | `std/native/cpp/nhttp/async.md` | `task<T>` 코루틴·`io_context` 리액터 |
 | `std/native/cpp/nhttp/plugin.md` | 서버 생명주기·요청 훅 플러그인 시스템 |
-
-# Open Points
-
-- 이 파일은 1.2절의 "생성 대상"도 "실체 명세"도 아닌, 순수한 안내용 색인이다.
-  이런 성격의 파일을 위한 정식 패키지 종류는 아직 SPEC.md에 정의되어 있지
-  않다 — 정해지면 이 파일의 Meta도 맞춘다.
