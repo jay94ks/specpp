@@ -159,6 +159,13 @@ server.get("/:user/profile", (req) -> HttpServer.Response.text(200, req.routePar
 
 # Open Points
 
-- HTTP/2, 압축(gzip 등), 쿠키/세션 관리는 이 버전의 범위 밖이다.
+- HTTP/2, 쿠키/세션 관리는 이 버전의 범위 밖이다.
+- 압축(gzip)은 이 파일 자체는 다루지 않는다 —
+  [`std/io/compression.md`](../io/compression.md)의 `Gzip`으로 응답
+  본문을 압축하고 `Content-Encoding: gzip` 헤더를 직접 붙이는 방식으로
+  조합한다.
 - 요청 본문 스트리밍(전체를 메모리에 올리지 않고 부분적으로 읽는
-  것)은 다루지 않는다 — `body: bytes`로 전체를 전제한다.
+  것)은 이 파일 자체는 다루지 않는다 — `body: bytes`로 전체를
+  전제한다. 스트리밍이 필요하면 [`std/io/stream.md`](../io/stream.md)의
+  `Stream`으로 `body`를 대체하는 확장된 계약이 필요하다(이 버전은
+  아직 그렇게 하지 않는다).

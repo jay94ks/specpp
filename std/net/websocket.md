@@ -9,7 +9,9 @@
 # Intent
 
 채팅, 실시간 알림처럼 서버와 클라이언트가 연결을 유지한 채 양방향으로
-메시지를 주고받아야 할 때 쓴다.
+메시지를 주고받아야 할 때 쓴다. 이 계약은 **서버**가 접속을 받는
+쪽이다 — 반대로 다른 서버에 접속하는 **클라이언트**가 필요하면
+[`std/net/websocketclient.md`](websocketclient.md)를 쓴다.
 [`std/net/httpserver.md`](httpserver.md)의 `Server.mount`로 붙이는
 `HttpServer.Extension` 중 하나다.
 [`std/native/cpp/nhttp/websocket.md`](../native/cpp/nhttp/websocket.md)의

@@ -54,5 +54,5 @@
 
 # Open Points
 
-- 암호학적으로 안전한 난수(CSPRNG)는 이 패키지의 범위 밖이다 — 필요하면 별도
-  패키지(`std/security/random` 등, 미정)로 분리한다.
+- 암호학적으로 안전한 난수(CSPRNG)는 이 패키지의 범위 밖이다 —
+  [`std/system/crypto.md`](crypto.md)의 `SecureRandom`을 대신 쓴다.

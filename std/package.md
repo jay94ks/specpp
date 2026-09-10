@@ -53,6 +53,8 @@
 |---|---|
 | `std/io/file.md` | 파일 읽기·쓰기, 경로(Path) 조작 |
 | `std/io/directory.md` | 디렉터리 생성·삭제·목록 조회 |
+| `std/io/stream.md` | 순차 읽기/쓰기 바이트 스트림(대용량·부분 처리) |
+| `std/io/compression.md` | gzip 압축·해제, ZIP 아카이브 읽기/쓰기 |
 
 ### 텍스트 (`text/`)
 
@@ -61,6 +63,7 @@
 | `std/text/string.md` | `string` 조작 함수 모음 |
 | `std/text/regex.md` | 정규 표현식 |
 | `std/text/json.md` | JSON 직렬화·역직렬화 |
+| `std/text/encoding.md` | Base64/Hex/URL 인코딩 |
 
 ### 컬렉션 (`collections/`, 단일 스레드 전제)
 
@@ -71,6 +74,7 @@
 | `std/collections/set.md` | 중복 없는 모음 |
 | `std/collections/queue.md` | FIFO 큐 |
 | `std/collections/stack.md` | LIFO 스택 |
+| `std/collections/priorityqueue.md` | 우선순위 큐(힙 기반) |
 | `std/collections/dictionary.md` | 키-값 연관 배열 |
 
 ### 동시성 (`concurrency/`)
@@ -101,6 +105,7 @@
 | `std/system/appdirs.md` | 앱 설정·캐시·데이터 경로 (추상 계약) |
 | `std/system/dialog.md` | 알림·확인 대화 상자 (추상 계약) |
 | `std/system/debug.md` | 실행 중 조건 검사(assert)·진단 로그, 스펙 추적(4.7절) |
+| `std/system/crypto.md` | 해싱·HMAC·대칭 암호화·암호학적으로 안전한 난수 |
 
 ### GUI (`ui/`)
 
@@ -126,6 +131,8 @@
 | `std/net/staticfiles.md` | 조건부 GET·Range 지원 정적 파일 서빙 (`std/native/cpp/nhttp/static.md`가 C/C++ 기본 구현) |
 | `std/net/websocket.md` | WebSocket 서버 엔드포인트 (`std/native/cpp/nhttp/websocket.md`가 C/C++ 기본 구현) |
 | `std/net/reverseproxy.md` | 라운드로빈 리버스 프록시 (`std/native/cpp/nhttp/reverseproxy.md`가 C/C++ 기본 구현) |
+| `std/net/websocketclient.md` | WebSocket 클라이언트(서버에 접속하는 쪽) |
+| `std/net/smtp.md` | SMTP 이메일 발송 |
 
 ### 클라우드 서비스 (`cloud/`)
 
