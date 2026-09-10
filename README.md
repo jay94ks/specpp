@@ -47,7 +47,7 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/concurrency/`](std/concurrency/) | 원자적 값·잠금·스레드·스레드 안전 컬렉션 |
 | [`std/io/`](std/io/) | 파일·디렉터리 |
 | [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스·디버깅 등 (.NET `System`에 대응) |
-| [`std/net/`](std/net/) | URI·DNS·TCP·UDP·HTTP (.NET `System.Net`에 대응) |
+| [`std/net/`](std/net/) | URI·DNS·TCP·UDP·HTTP 클라이언트/서버·정적 파일·WebSocket·리버스 프록시 (.NET `System.Net`에 대응) |
 | [`std/cloud/`](std/cloud/) | 클라우드 인프라 — 오브젝트 스토리지·CDN·NoSQL DB·큐·Pub/Sub·서버리스 함수·시크릿·관측성·IAM·VPC 추상 계약 + AWS/GCP/Azure `kind: native` 구현 |
 | [`std/ui/`](std/ui/) | GUI 위젯·캔버스·메뉴·텍스트 상자·파일 대화 상자 |
 | [`std/graphics/`](std/graphics/) | OpenGL 렌더링 — 레거시 즉시 모드(1.x)와 셰이더·버텍스 버퍼 기반 현대적 렌더링(3.3+) 둘 다 (`kind: native`, 플랫폼 무관) |
@@ -56,7 +56,7 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/web/`](std/web/) | 브라우저 API — DOM/Canvas/WebGL2/Web Audio/localStorage·IndexedDB (`platform: web`) |
 | [`std/js/`](std/js/) | JS/TS 생태계 서드파티 라이브러리 — axios (`kind: native`) |
 | [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
-| [`std/native/`](std/native/) | C/C++ 표준 라이브러리 자체에 대한 실체 명세 |
+| [`std/native/`](std/native/) | C/C++ 라이브러리에 대한 실체 명세 + 기본 라이브러리 |
 
 ## 상태
 

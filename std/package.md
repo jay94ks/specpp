@@ -102,6 +102,10 @@
 | `std/net/tcp.md` | TCP 클라이언트·리스너 |
 | `std/net/httpclient.md` | HTTP 요청·응답 |
 | `std/net/udp.md` | 연결 없는 데이터그램(UDP) 통신 |
+| `std/net/httpserver.md` | HTTP 서버 — 리스너·요청/응답·라우터·미들웨어 (`std/native/cpp/nhttp/server.md`가 C/C++ 기본 구현) |
+| `std/net/staticfiles.md` | 조건부 GET·Range 지원 정적 파일 서빙 (`std/native/cpp/nhttp/static.md`가 C/C++ 기본 구현) |
+| `std/net/websocket.md` | WebSocket 서버 엔드포인트 (`std/native/cpp/nhttp/websocket.md`가 C/C++ 기본 구현) |
+| `std/net/reverseproxy.md` | 라운드로빈 리버스 프록시 (`std/native/cpp/nhttp/reverseproxy.md`가 C/C++ 기본 구현) |
 
 ### 클라우드 서비스 (`cloud/`)
 
@@ -253,10 +257,11 @@
 
 ### 네이티브 실체 명세 (`native/`, `kind: native` — 1.2절)
 
-아래는 "만들 대상"이 아니라 C/C++에 **이미 존재하는** 표준 라이브러리를 그대로
-옮겨 적은 실체 명세입니다. 평범한 패키지를 새로 쓸 때는 대신 위의 추상 계약
-(`text/`, `collections/`, `system/` 등)을 쓰고, 이 아래 항목들은 `extern "C"`/
-`extern "C++"`(3.9절)로 C/C++ 코드와 직접 맞물려야 할 때만 참조합니다.
+아래는 "만들 대상"이 아니라 C/C++에 **이미 존재하는** 표준 라이브러리나
+특정 서드파티 라이브러리를 그대로 옮겨 적은 실체 명세입니다. 평범한
+패키지를 새로 쓸 때는 대신 위의 추상 계약(`text/`, `collections/`,
+`system/` 등)을 쓰고, 이 아래 항목들은 `extern "C"`/`extern "C++"`
+(3.9절)로 C/C++ 코드와 직접 맞물려야 할 때만 참조합니다.
 
 | 경로 | 제공하는 것 |
 |---|---|
@@ -266,6 +271,29 @@
 | `std/native/cpp/memory.md` | `<memory>` (`unique_ptr`/`shared_ptr`) |
 | `std/native/cpp/containers.md` | `<vector>`/`<string>`/`<unordered_map>` |
 | `std/native/cpp/iostream.md` | `<iostream>` (`cout`/`cin`/`cerr`) |
+
+**서드파티 라이브러리 (`native/cpp/nhttp/`, `platform: linux, windows`) —
+SPP가 네이티브 HTTP 서버 구현에 기본으로 채택하는 라이브러리.**
+코루틴 기반 HTTP/1.1·HTTP/2 서버 라이브러리
+[jay94ks/libnhttp](https://github.com/jay94ks/libnhttp) 하나를 그
+라이브러리 자신의 모듈 경계(서버/라우팅, 정적 파일·가상 호스팅,
+WebSocket, 리버스 프록시, TLS, 비동기 실행 계층, 플러그인)에 따라 여러
+단일 파일 패키지로 나눠 옮겼다 — [`std/js/axios.md`](js/axios.md)와
+같은 성격(추상 계약이 아니라 실제 라이브러리 하나를 그대로 옮긴 것)
+이다. 대상이 C/C++이고 웹 서버(REST API, 정적 파일, WebSocket, 리버스
+프록시 등)를 만들어야 한다면, 사용자가 다른 라이브러리를 명시적으로
+지정하지 않는 한 AI는 처음부터 소켓·HTTP를 직접 구현하는 대신 이
+계열을 우선 채택한다(각 파일의 Intent 참고).
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/native/cpp/nhttp/server.md` | HTTP 리스너·요청/응답·REST 라우터 핵심 |
+| `std/native/cpp/nhttp/static.md` | 정적 파일 서빙(overlay)·가상 호스팅(vhost) |
+| `std/native/cpp/nhttp/websocket.md` | WebSocket 엔드포인트 |
+| `std/native/cpp/nhttp/reverseproxy.md` | 라운드로빈 리버스 프록시 |
+| `std/native/cpp/nhttp/tls.md` | OpenSSL 기반 TLS 컨텍스트 |
+| `std/native/cpp/nhttp/async.md` | `task<T>` 코루틴·`io_context` 리액터 |
+| `std/native/cpp/nhttp/plugin.md` | 서버 생명주기·요청 훅 플러그인 시스템 |
 
 # Open Points
 
