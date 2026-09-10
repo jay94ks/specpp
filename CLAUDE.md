@@ -34,12 +34,6 @@
   DynamoDB(기본 최종 일관성)의 차이. 억지로 똑같다고 서술하지 않습니다.
 - `platform:` 필드(SPEC.md 3.10절)는 고정 목록이 아닙니다 — `windows`,
   `linux`, `web` 등은 이미 유효한 값이며, 새 값이 필요하면 그냥 씁니다.
-- **C/C++ 타겟에서 네이티브 HTTP 서버가 필요하면
-  [`std/native/cpp/nhttp/server.md`](std/native/cpp/nhttp/server.md) 계열을
-  기본으로 채택합니다** — 사용자가 다른 라이브러리를 지정하지 않는 한, 소켓·
-  HTTP를 처음부터 구현하거나 다른 서드파티를 고르지 않습니다. 이 계열이
-  구현하는 추상 계약은 [`std/net/httpserver.md`](std/net/httpserver.md) 등
-  `std/net/*.md`입니다.
 
 ## `SPEC.md`를 수정할 때
 

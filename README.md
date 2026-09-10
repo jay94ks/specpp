@@ -66,26 +66,31 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 ## 표준 라이브러리
 
 전체 목록과 각 패키지 설명은 [`std/package.md`](std/package.md)에 SPP 명세
-형식으로 정리되어 있습니다. 폴더 구성만 간단히 보면:
+형식으로 정리되어 있습니다 — 그 색인은 **추상 계약**(대상 언어·플랫폼에
+자유롭게 매핑됨)과 **실체 명세**(`kind: native`, 특정 플랫폼·제공자의 실제
+API를 그대로 옮긴 것) 두 그룹으로 나뉘는데, 아래 표도 같은 순서로
+정리했습니다.
 
 | 폴더 | 내용 |
 |---|---|
+| **추상 계약** | |
 | [`std/`](std/) (루트) | 콘솔 입출력 — `stdout`/`stderr`/`stdin` |
 | [`std/text/`](std/text/) | 문자열·정규식·JSON |
 | [`std/collections/`](std/collections/) | `list`/`Set`/`Queue`/`Stack`/`Dictionary` |
 | [`std/concurrency/`](std/concurrency/) | 원자적 값·잠금·스레드·스레드 안전 컬렉션 |
 | [`std/io/`](std/io/) | 파일·디렉터리 |
 | [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스·디버깅 등 (.NET `System`에 대응) |
+| [`std/ui/`](std/ui/) | GUI 위젯·캔버스·메뉴·텍스트 상자·파일 대화 상자 |
 | [`std/net/`](std/net/) | URI·DNS·TCP·UDP·HTTP 클라이언트/서버·정적 파일·WebSocket·리버스 프록시 (.NET `System.Net`에 대응) |
 | [`std/cloud/`](std/cloud/) | 클라우드 인프라 — 오브젝트 스토리지·CDN·NoSQL DB·큐·Pub/Sub·서버리스 함수·시크릿·관측성·IAM·VPC 추상 계약 + AWS/GCP/Azure `kind: native` 구현 |
-| [`std/ui/`](std/ui/) | GUI 위젯·캔버스·메뉴·텍스트 상자·파일 대화 상자 |
-| [`std/graphics/`](std/graphics/) | OpenGL 렌더링 — 레거시 즉시 모드(1.x)와 셰이더·버텍스 버퍼 기반 현대적 렌더링(3.3+) 둘 다 (`kind: native`, 플랫폼 무관) |
-| [`std/audio/`](std/audio/) | OpenAL 위치 기반 효과음 (`kind: native`, 플랫폼 무관) |
+| **플랫폼·제공자별 실체 명세** (`kind: native`) | |
+| [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
 | [`std/windows/`](std/windows/) · [`std/linux/`](std/linux/) · [`std/macos/`](std/macos/) | OS별 API (레지스트리, Direct3D 9/11, DirectSound, 네이티브 대화 상자 등) |
 | [`std/web/`](std/web/) | 브라우저 API — DOM/Canvas/WebGL2/Web Audio/localStorage·IndexedDB (`platform: web`) |
-| [`std/js/`](std/js/) | JS/TS 생태계 서드파티 라이브러리 — axios (`kind: native`) |
-| [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
-| [`std/native/`](std/native/) | C/C++ 라이브러리에 대한 실체 명세 + 기본 라이브러리 |
+| [`std/js/`](std/js/) | JS/TS 생태계 서드파티 라이브러리 — axios |
+| [`std/graphics/`](std/graphics/) | OpenGL 렌더링 — 레거시 즉시 모드(1.x)와 셰이더·버텍스 버퍼 기반 현대적 렌더링(3.3+) 둘 다 (플랫폼 무관) |
+| [`std/audio/`](std/audio/) | OpenAL 위치 기반 효과음 (플랫폼 무관) |
+| [`std/native/`](std/native/) | C/C++ 표준 라이브러리 실체 명세 + 네이티브 HTTP 서버 기본 채택 라이브러리 |
 
 ## 상태
 
