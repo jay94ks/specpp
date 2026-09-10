@@ -55,7 +55,8 @@
 
 - 타겟 언어의 네이티브 HTTP 클라이언트(C++ 라이브러리, Python
   `urllib.request`/`requests`, Java `HttpClient`, C# `HttpClient`, JavaScript
-  `fetch` 등)에 매핑한다.
+  `fetch`, 또는 interceptor 등 더 풍부한 기능이 필요하면
+  [`std/js/axios.md`](../js/axios.md))에 매핑한다.
 - 리다이렉트(3xx)를 자동으로 따라갈지는 타겟 언어의 기본 동작을 따른다.
 
 # Examples

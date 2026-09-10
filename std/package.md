@@ -103,6 +103,15 @@
 | `std/net/httpclient.md` | HTTP 요청·응답 |
 | `std/net/udp.md` | 연결 없는 데이터그램(UDP) 통신 |
 
+### 클라우드 서비스 (`cloud/`, `kind: native`, 플랫폼 무관)
+
+실제 존재하는 클라우드 제공자 API를 옮긴 실체 명세들이다 — 1.2절.
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/cloud/s3.md` | 버킷·키 기반 오브젝트 스토리지 (AWS S3) |
+| `std/cloud/cdn.md` | 엣지 캐싱·배포 CDN (AWS CloudFront) |
+
 ### POSIX 공통 (`posix/`, `platform: linux, macos` — 3.10절)
 
 | 경로 | 제공하는 것 |
@@ -152,6 +161,16 @@
 | `std/web/webgl.md` | WebGL2 셰이더·버텍스 버퍼 기반 렌더링 (`kind: native`) |
 | `std/web/webaudio.md` | Web Audio API 위치 기반 효과음 재생 (`kind: native`) |
 | `std/web/storage.md` | localStorage/IndexedDB 기반 영속 저장 (`kind: native`) |
+
+### JavaScript 생태계 (`js/`, `kind: native`, 플랫폼 무관)
+
+특정 OS나 브라우저가 아니라 JavaScript/TypeScript 언어 생태계 자체에
+묶인, 사실상 표준처럼 쓰이는 서드파티 라이브러리의 실체 명세다 — Node.js와
+브라우저 양쪽에서 동일하게 쓸 수 있어 `platform` 필드를 두지 않는다.
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/js/axios.md` | HTTP 클라이언트 (axios — `std/net/httpclient.md`의 실제 구현 선택지) |
 
 ### 그래픽스 (`graphics/`, `kind: native`, 플랫폼 무관)
 
