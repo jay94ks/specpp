@@ -2,16 +2,18 @@
 
 # Meta
 
-- name: std/cloud/cloudwatch
+- name: std/cloud/aws/cloudwatch
 - version: 0.1.0
 - description: 로그를 모으고 지표(metric)를 기록·조회하는 관측성(observability) 서비스(AWS CloudWatch) 실체 명세.
 - kind: native
 
 # Intent
 
+이 패키지는 [`std/cloud/observability.md`](../observability.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/monitoring.md)/[Azure 구현](../azure/monitor.md)도 참고할 수 있다.
+
 여러 서버·함수에 흩어진 로그를 한 곳에서 찾아보거나, "요청 처리 시간"
 같은 수치를 시계열로 쌓아 그래프로 보거나 임계값을 넘으면 알림을
-받고 싶을 때 쓴다. [`std/system/debug.md`](../system/debug.md)가 실행
+받고 싶을 때 쓴다. [`std/system/debug.md`](../../system/debug.md)가 실행
 중인 프로그램 하나 안에서의 진단(assert, 로그)을 다룬다면, 이 패키지는
 그 로그·지표를 **여러 인스턴스에 걸쳐 중앙에 모으고 나중에 조회하는**
 쪽을 다룬다. 실제 존재하는 서비스이므로 새로 설계할 대상이 아니다
@@ -61,7 +63,7 @@
   고해상도 지표는 비용이 더 든다(이 계약은 구분하지 않는다).
 - 지표는 기본 15개월, 로그는 그룹마다 설정한 보존 기간(기본은
   무제한)이 지나면 사라진다 — 장기 보관이 필요하면
-  [`std/cloud/s3.md`](s3.md)로 내보내는 것이 실제 흔한 패턴이다.
+  [`std/cloud/aws/s3.md`](s3.md)로 내보내는 것이 실제 흔한 패턴이다.
 
 # Examples
 
@@ -83,6 +85,6 @@
 # Open Points
 
 - 경보(Alarm, 임계값을 넘으면 알리는 것)는 다루지 않는다 — 실제로
-  걸면 [`std/cloud/sns.md`](sns.md)로 알림을 받는 조합이 흔하다.
+  걸면 [`std/cloud/aws/sns.md`](sns.md)로 알림을 받는 조합이 흔하다.
 - 로그 필터 패턴 쿼리(CloudWatch Logs Insights), 대시보드 구성은
   다루지 않는다.

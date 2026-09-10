@@ -2,12 +2,14 @@
 
 # Meta
 
-- name: std/cloud/iam
+- name: std/cloud/aws/iam
 - version: 0.1.0
 - description: 누가(또는 어떤 리소스가) 무엇을 할 수 있는지를 정의하는 접근 제어(AWS IAM) 실체 명세.
 - kind: native
 
 # Intent
+
+이 패키지는 [`std/cloud/accesscontrol.md`](../accesscontrol.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/iam.md)/[Azure 구현](../azure/rbac.md)도 참고할 수 있다.
 
 이 저장소의 다른 `std/cloud/*.md`(S3, DynamoDB, Lambda 등)를 실제로
 호출할 수 있는지는 전부 IAM이 결정한다 — 지금까지 각 파일의
@@ -59,7 +61,7 @@ IAM 정책 문서 하나를 이루는 단위 규칙이다(실제 JSON 정책 문
 
 ## Library
 
-[`std/cloud/lambda.md`](lambda.md) 함수를 배포하기 전에, 그 함수가
+[`std/cloud/aws/lambda.md`](lambda.md) 함수를 배포하기 전에, 그 함수가
 실제로 필요한 리소스에만 접근하도록 `createRole(...)` +
 `putRolePolicy(...)`로 실행 역할을 먼저 만들어 둡니다.
 
@@ -71,7 +73,7 @@ IAM 정책 문서 하나를 이루는 단위 규칙이다(실제 JSON 정책 문
   `"*"`를 쓰면 당장은 편하지만 실제로 필요한 것보다 넓은 권한을
   허용하게 된다 — 이 저장소의 다른 `std/cloud/*.md`를 참조하는
   역할은, 정확히 그 파일이 실제로 부르는 API(예:
-  [`std/cloud/s3.md`](s3.md)의 `getObject`라면 `"s3:GetObject"`)만
+  [`std/cloud/aws/s3.md`](s3.md)의 `getObject`라면 `"s3:GetObject"`)만
   허용하는 것을 권장한다.
 - `effect: "Deny"`는 같은 정책 안의 `"Allow"`보다 항상 우선한다(실제
   IAM 평가 규칙) — 명시적 거부는 어떤 허용으로도 뒤집을 수 없다.

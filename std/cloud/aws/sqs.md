@@ -2,12 +2,14 @@
 
 # Meta
 
-- name: std/cloud/sqs
+- name: std/cloud/aws/sqs
 - version: 0.1.0
 - description: 생산자와 소비자를 시간적으로 분리하는 완전관리형 메시지 큐(AWS SQS) 실체 명세.
 - kind: native
 
 # Intent
+
+이 패키지는 [`std/cloud/queue.md`](../queue.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/pubsub.md)/[Azure 구현](../azure/storagequeue.md)도 참고할 수 있다.
 
 작업을 즉시 처리하지 않고 큐에 쌓아 뒀다가, 소비자가 준비됐을 때(또는
 여러 소비자가 나눠서) 꺼내 처리하고 싶을 때 쓴다 — 부하가 몰릴 때

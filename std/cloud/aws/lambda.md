@@ -2,16 +2,18 @@
 
 # Meta
 
-- name: std/cloud/lambda
+- name: std/cloud/aws/lambda
 - version: 0.1.0
 - description: 요청·이벤트에 반응해 코드를 실행하는 서버리스 컴퓨트(AWS Lambda) 실체 명세 — 함수를 호출하는 쪽과 함수 자신(핸들러)의 실제 계약을 함께 다룬다.
 - kind: native
 
 # Intent
 
+이 패키지는 [`std/cloud/function.md`](../function.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/functions.md)/[Azure 구현](../azure/functions.md)도 참고할 수 있다.
+
 서버를 직접 띄우고 관리하지 않고, 이벤트(HTTP 요청, 큐 메시지, 파일
 업로드 등)가 생길 때만 코드를 실행하고 싶을 때 쓴다.
-[`std/system/process.md`](../system/process.md)가 "이미 떠 있는
+[`std/system/process.md`](../../system/process.md)가 "이미 떠 있는
 프로세스를 실행·대기"한다면, 이 패키지는 "요청이 올 때만 실행 환경
 자체를 대신 띄워 주는" 관리형 서비스를 다룬다. 실제 존재하는
 서비스이므로 새로 설계할 대상이 아니다(`kind: native`, SPEC.md 1.2절).
@@ -69,7 +71,7 @@ Lambda 함수는 `(event: bytes, context: Lambda.Context) -> bytes` 모양의
 진입점 하나로 작성합니다 — 실제 런타임(Node.js `exports.handler`,
 Python `def handler(event, context)` 등)이 요청마다 이 함수를 부르고
 반환값을 호출자에게 돌려줍니다. 이 진입점 안에서 하는 일은 이
-저장소의 다른 패키지(예: `std/cloud/s3.md`, `std/cloud/dynamodb.md`)를
+저장소의 다른 패키지(예: `std/cloud/aws/s3.md`, `std/cloud/aws/dynamodb.md`)를
 평범하게 쓰는 일반 코드와 다르지 않다 — Lambda 고유의 부분은 오직
 "이벤트를 어떻게 받고 응답을 어떻게 돌려주는가"라는 진입점 모양뿐이다.
 
@@ -84,9 +86,9 @@ Python `def handler(event, context)` 등)이 요청마다 이 함수를 부르�
   Lambda로 옮길 수 없다(배치 작업 등은 별도 컴퓨트를 쓴다).
 - 함수가 실제로 접근할 수 있는 AWS 리소스(S3 버킷, DynamoDB 테이블
   등)는 이 코드가 아니라 함수에 연결된 실행 역할(execution role)의
-  권한으로 결정된다 — [`std/cloud/iam.md`](iam.md) 참조. 코드에 접근
+  권한으로 결정된다 — [`std/cloud/aws/iam.md`](iam.md) 참조. 코드에 접근
   키를 직접 넣지 않는다(다른 `std/cloud/*.md`와 같은 원칙,
-  [`std/cloud/s3.md`](s3.md) Constraints 참조).
+  [`std/cloud/aws/s3.md`](s3.md) Constraints 참조).
 - 메모리(128MB~10,240MB)를 늘리면 CPU 할당량도 함께 늘어난다(실제
   AWS 과금·성능 모델) — 순수 메모리 절약이 항상 비용을 줄이는 것은
   아니다.
@@ -115,5 +117,5 @@ Python `def handler(event, context)` 등)이 요청마다 이 함수를 부르�
   않는다.
 - 컨테이너 이미지 기반 배포(ZIP이 아니라 Docker 이미지로 배포하는
   방식)는 다루지 않는다.
-- 함수를 [`std/cloud/vpc.md`](vpc.md) 안에 배치하는 것은 다루지
+- 함수를 [`std/cloud/aws/vpc.md`](vpc.md) 안에 배치하는 것은 다루지
   않는다(그 파일의 Open Points 참고).

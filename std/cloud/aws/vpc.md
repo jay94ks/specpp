@@ -2,21 +2,23 @@
 
 # Meta
 
-- name: std/cloud/vpc
+- name: std/cloud/aws/vpc
 - version: 0.1.0
 - description: 클라우드 리소스를 격리된 가상 네트워크로 나누고 트래픽을 걸러내는 네트워크 격리(AWS VPC/보안 그룹) 실체 명세.
 - kind: native
 
 # Intent
 
+이 패키지는 [`std/cloud/network.md`](../network.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/vpc.md)/[Azure 구현](../azure/vnet.md)도 참고할 수 있다.
+
 여러 리소스(서버, 데이터베이스 등)를 하나의 계정 안에서 서로 격리된
 네트워크 구역으로 나누고, 어떤 트래픽이 어떤 리소스에 들어오고 나갈
-수 있는지 규칙으로 제한하고 싶을 때 쓴다. [`std/cloud/iam.md`](iam.md)가
+수 있는지 규칙으로 제한하고 싶을 때 쓴다. [`std/cloud/aws/iam.md`](iam.md)가
 "누가 어떤 API를 부를 수 있는가"를 다룬다면, 이 패키지는 "어떤
 네트워크 트래픽이 어떤 리소스에 도달할 수 있는가"를 다룬다 — 서로
 다른 계층의 접근 제어다.
 
-`std/cloud/iam.md`와 마찬가지로, 이 API는 보통 애플리케이션 코드가
+`std/cloud/aws/iam.md`와 마찬가지로, 이 API는 보통 애플리케이션 코드가
 실행 중에 호출하는 것이 아니라 인프라를 준비하는 단계에서 한 번
 구성해 두는 것이다(아래 Constraints) — 그럼에도 실제 API로 존재하므로
 `kind: native`로 옮긴다(SPEC.md 1.2절).
@@ -75,7 +77,7 @@
   Points).
 - 기본적으로 새 보안 그룹은 모든 인바운드를 거부하고 모든 아웃바운드는
   허용한다 — 실제로 필요한 포트만 `authorizeIngress`로 명시적으로
-  여는 것이 [`std/cloud/iam.md`](iam.md)와 같은 최소 권한 원칙이다.
+  여는 것이 [`std/cloud/aws/iam.md`](iam.md)와 같은 최소 권한 원칙이다.
 - `cidrOrSourceGroup`에 `"0.0.0.0/0"`(모든 IP)을 쓰면 인터넷 전체에
   여는 것이다 — 정말 공개 서비스(예: 80/443 포트의 공개 웹 서버)가
   아니라면 특정 CIDR이나 다른 보안 그룹 ID로 좁히는 것을 권장한다.
@@ -95,5 +97,5 @@
 - 네트워크 ACL(서브넷 단위의 상태 비저장 규칙), 라우팅 테이블,
   인터넷 게이트웨이/NAT 게이트웨이, VPC 피어링은 이 버전의 범위
   밖이다.
-- [`std/cloud/lambda.md`](lambda.md) 함수나 다른 관리형 서비스를 이
+- [`std/cloud/aws/lambda.md`](lambda.md) 함수나 다른 관리형 서비스를 이
   VPC 안에 배치하는 것(콜드 스타트에 영향을 준다)은 다루지 않는다.

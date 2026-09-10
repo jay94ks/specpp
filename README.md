@@ -48,7 +48,7 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/io/`](std/io/) | 파일·디렉터리 |
 | [`std/system/`](std/system/) | 예외·수학·시간·환경 변수·프로세스·디버깅 등 (.NET `System`에 대응) |
 | [`std/net/`](std/net/) | URI·DNS·TCP·UDP·HTTP (.NET `System.Net`에 대응) |
-| [`std/cloud/`](std/cloud/) | AWS 기준 클라우드 인프라 — S3·CloudFront·DynamoDB·SQS·SNS·Lambda·Secrets Manager·CloudWatch·IAM·VPC (`kind: native`) |
+| [`std/cloud/`](std/cloud/) | 클라우드 인프라 — 오브젝트 스토리지·CDN·NoSQL DB·큐·Pub/Sub·서버리스 함수·시크릿·관측성·IAM·VPC 추상 계약 + AWS/GCP/Azure `kind: native` 구현 |
 | [`std/ui/`](std/ui/) | GUI 위젯·캔버스·메뉴·텍스트 상자·파일 대화 상자 |
 | [`std/graphics/`](std/graphics/) | OpenGL 렌더링 — 레거시 즉시 모드(1.x)와 셰이더·버텍스 버퍼 기반 현대적 렌더링(3.3+) 둘 다 (`kind: native`, 플랫폼 무관) |
 | [`std/audio/`](std/audio/) | OpenAL 위치 기반 효과음 (`kind: native`, 플랫폼 무관) |

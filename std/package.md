@@ -103,24 +103,80 @@
 | `std/net/httpclient.md` | HTTP 요청·응답 |
 | `std/net/udp.md` | 연결 없는 데이터그램(UDP) 통신 |
 
-### 클라우드 서비스 (`cloud/`, `kind: native`, 플랫폼 무관)
+### 클라우드 서비스 (`cloud/`)
 
-실제 존재하는 클라우드 제공자(AWS 기준) API를 옮긴 실체 명세들이다 —
-1.2절. `iam.md`/`vpc.md`는 다른 항목과 달리 애플리케이션 런타임이
-아니라 배포·인프라 구성 단계에서 주로 쓰인다(각 파일 Intent 참고).
+[`std/ui/widgets.md`](ui/widgets.md) + `windows/win32.md`/`web/dom.md`와
+같은 "추상 계약 + 제공자별 `kind: native` 구현" 패턴을 클라우드
+인프라에도 적용한 것이다 — `std/cloud/*.md`(추상 계약, 아래 표)는
+어느 제공자를 타겟하든 참조 코드가 그대로 유지되게 하고, 실제
+트랜스파일은 항상 `aws/`/`gcp/`/`azure/` 하위의 구체적인 구현으로
+이뤄진다. 세 제공자의 실제 API 모양이 근본적으로 다른 지점(예: GCP는
+큐와 팬아웃을 Pub/Sub 하나로 통합한다, Azure RBAC는 AWS/GCP와 권한
+모델 자체가 다르다)은 각 파일이 얼버무리지 않고 명시한다 — 정확한
+차이는 각 파일의 Constraints/Intent를 참고한다.
+
+`accesscontrol.md`/`network.md`(IAM/VPC류)는 다른 항목과 달리
+애플리케이션 런타임이 아니라 배포·인프라 구성 단계에서 주로 쓰인다
+(각 파일 Intent 참고).
+
+#### 추상 계약
 
 | 경로 | 제공하는 것 |
 |---|---|
-| `std/cloud/s3.md` | 버킷·키 기반 오브젝트 스토리지 (AWS S3) |
-| `std/cloud/cdn.md` | 엣지 캐싱·배포 CDN (AWS CloudFront) |
-| `std/cloud/dynamodb.md` | 키 기반 완전관리형 NoSQL 데이터베이스 (AWS DynamoDB) |
-| `std/cloud/sqs.md` | 완전관리형 메시지 큐 (AWS SQS) |
-| `std/cloud/sns.md` | 팬아웃 Pub/Sub 알림 (AWS SNS) |
-| `std/cloud/lambda.md` | 서버리스 함수 호출·핸들러 계약 (AWS Lambda) |
-| `std/cloud/secretsmanager.md` | 비밀번호·API 키 등 시크릿 저장·조회 (AWS Secrets Manager) |
-| `std/cloud/cloudwatch.md` | 로그 수집·지표 기록/조회 (AWS CloudWatch) |
-| `std/cloud/iam.md` | 접근 권한(역할·정책) 정의 (AWS IAM) |
-| `std/cloud/vpc.md` | 가상 네트워크 격리·보안 그룹 (AWS VPC) |
+| `std/cloud/objectstorage.md` | 버킷·키 기반 오브젝트 스토리지 |
+| `std/cloud/cdn.md` | 엣지 캐싱·배포 CDN |
+| `std/cloud/nosqldb.md` | 키 기반 완전관리형 NoSQL 데이터베이스 |
+| `std/cloud/queue.md` | 완전관리형 메시지 큐(pull, 팬아웃 아님) |
+| `std/cloud/pubsub.md` | 팬아웃 Pub/Sub 알림 |
+| `std/cloud/function.md` | 서버리스 함수 호출·핸들러 계약 |
+| `std/cloud/secrets.md` | 비밀번호·API 키 등 시크릿 저장·조회 |
+| `std/cloud/observability.md` | 로그 수집·지표 기록/조회 |
+| `std/cloud/accesscontrol.md` | 접근 권한(역할·정책) 정의 (IAM) |
+| `std/cloud/network.md` | 가상 네트워크 격리·보안 그룹 (VPC) |
+
+#### AWS 구현 (`aws/`, `kind: native`)
+
+| 경로 | 구현하는 추상 계약 |
+|---|---|
+| `std/cloud/aws/s3.md` | objectstorage.md (S3) |
+| `std/cloud/aws/cloudfront.md` | cdn.md (CloudFront) |
+| `std/cloud/aws/dynamodb.md` | nosqldb.md (DynamoDB) |
+| `std/cloud/aws/sqs.md` | queue.md (SQS) |
+| `std/cloud/aws/sns.md` | pubsub.md (SNS) |
+| `std/cloud/aws/lambda.md` | function.md (Lambda) |
+| `std/cloud/aws/secretsmanager.md` | secrets.md (Secrets Manager) |
+| `std/cloud/aws/cloudwatch.md` | observability.md (CloudWatch) |
+| `std/cloud/aws/iam.md` | accesscontrol.md (IAM) |
+| `std/cloud/aws/vpc.md` | network.md (VPC) |
+
+#### GCP 구현 (`gcp/`, `kind: native`)
+
+| 경로 | 구현하는 추상 계약 |
+|---|---|
+| `std/cloud/gcp/storage.md` | objectstorage.md (Cloud Storage) |
+| `std/cloud/gcp/cdn.md` | cdn.md (Cloud CDN) |
+| `std/cloud/gcp/firestore.md` | nosqldb.md (Firestore) |
+| `std/cloud/gcp/pubsub.md` | queue.md **+** pubsub.md (Cloud Pub/Sub — GCP는 두 계약을 한 서비스로 통합) |
+| `std/cloud/gcp/functions.md` | function.md (Cloud Functions) |
+| `std/cloud/gcp/secretmanager.md` | secrets.md (Secret Manager) |
+| `std/cloud/gcp/monitoring.md` | observability.md (Cloud Logging/Monitoring) |
+| `std/cloud/gcp/iam.md` | accesscontrol.md (Cloud IAM) |
+| `std/cloud/gcp/vpc.md` | network.md (VPC 방화벽 규칙) |
+
+#### Azure 구현 (`azure/`, `kind: native`)
+
+| 경로 | 구현하는 추상 계약 |
+|---|---|
+| `std/cloud/azure/blobstorage.md` | objectstorage.md (Blob Storage) |
+| `std/cloud/azure/cdn.md` | cdn.md (Azure CDN) |
+| `std/cloud/azure/cosmosdb.md` | nosqldb.md (Cosmos DB) |
+| `std/cloud/azure/storagequeue.md` | queue.md (Queue Storage) |
+| `std/cloud/azure/servicebustopics.md` | pubsub.md (Service Bus Topics) |
+| `std/cloud/azure/functions.md` | function.md (Azure Functions) |
+| `std/cloud/azure/keyvault.md` | secrets.md (Key Vault) |
+| `std/cloud/azure/monitor.md` | observability.md (Azure Monitor) |
+| `std/cloud/azure/rbac.md` | accesscontrol.md (Azure RBAC) |
+| `std/cloud/azure/vnet.md` | network.md (Virtual Network/NSG) |
 
 ### POSIX 공통 (`posix/`, `platform: linux, macos` — 3.10절)
 

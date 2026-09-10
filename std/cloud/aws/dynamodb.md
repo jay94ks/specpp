@@ -2,12 +2,14 @@
 
 # Meta
 
-- name: std/cloud/dynamodb
+- name: std/cloud/aws/dynamodb
 - version: 0.1.0
 - description: 파티션 키로 접근하는 완전관리형 NoSQL 데이터베이스(AWS DynamoDB) 실체 명세.
 - kind: native
 
 # Intent
+
+이 패키지는 [`std/cloud/nosqldb.md`](../nosqldb.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/firestore.md)/[Azure 구현](../azure/cosmosdb.md)도 참고할 수 있다.
 
 관계형 스키마 없이, 키로 빠르게 읽고 쓰는 대량의 데이터를 다룰 때
 쓴다 — 세션, 사용자 프로필, 이벤트 로그 등. 조인이나 임의 조건 검색이
@@ -21,7 +23,7 @@
 
 생성자:
 - DynamoDb.Table(tableName: string, region: string)
-  설명: [`std/cloud/s3.md`](s3.md)의 `S3.Client`와 같은 이유로 접근
+  설명: [`std/cloud/aws/s3.md`](s3.md)의 `S3.Client`와 같은 이유로 접근
   키는 인자로 받지 않는다(환경/IAM 역할에서 읽는다).
 
 메서드:
@@ -60,7 +62,7 @@
 - **기본 읽기는 최종 일관성이다** — `putItem` 직후 다른 복제본에서
   `getItem`한 값이 아주 짧은 시간 동안 예전 값일 수 있다(실제 API의
   `ConsistentRead: true` 옵션을 주면 강한 일관성을 쓸 수 있지만 비용이
-  두 배다). [`std/cloud/s3.md`](s3.md)(항상 강한 일관성)와 다른
+  두 배다). [`std/cloud/aws/s3.md`](s3.md)(항상 강한 일관성)와 다른
   지점이다.
 - 파티션 키(필요하면 정렬 키까지)는 테이블을 만들 때 고정된다 — 그
   키가 아닌 속성으로 효율적으로 조회하려면 별도의 보조 색인(Global

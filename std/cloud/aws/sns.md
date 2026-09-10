@@ -2,17 +2,19 @@
 
 # Meta
 
-- name: std/cloud/sns
+- name: std/cloud/aws/sns
 - version: 0.1.0
 - description: 토픽 하나에 여러 구독자로 동시에 알림을 보내는 완전관리형 Pub/Sub(AWS SNS) 실체 명세.
 - kind: native
 
 # Intent
 
+이 패키지는 [`std/cloud/pubsub.md`](../pubsub.md) 추상 계약의 AWS 구현이다 — 같은 계약의 [GCP 구현](../gcp/pubsub.md)/[Azure 구현](../azure/servicebustopics.md)도 참고할 수 있다.
+
 하나의 이벤트를 여러 다른 시스템에 동시에 알려야 할 때(팬아웃,
 fan-out) 쓴다 — 예를 들어 "주문이 생성됨" 이벤트 하나를 이메일 발송
 큐, 재고 갱신 큐, 로그 저장소에 동시에 전달한다.
-[`std/cloud/sqs.md`](sqs.md)가 "큐 하나에 쌓아 한 무리의 소비자가
+[`std/cloud/aws/sqs.md`](sqs.md)가 "큐 하나에 쌓아 한 무리의 소비자가
 나눠 처리"하는 것이라면, 이 패키지는 "메시지 하나를 여러 독립된
 구독자 각각에게 전부 전달"하는 것이라는 점이 다르다 — 실제로 SNS
 토픽 하나의 구독자로 SQS 큐 여러 개를 걸어 두 개념을 함께 쓰는 것이
@@ -64,7 +66,7 @@ fan-out) 쓴다 — 예를 들어 "주문이 생성됨" 이벤트 하나를 이�
   (`SubscriptionConfirmation` 요청)을 받아야 활성화된다.
   `"sqs"`/`"lambda"` 구독은(대상 리소스의 정책이 SNS의 발행을
   허용하도록 설정돼 있다면) 별도 확인 없이 바로 활성화된다.
-- 메시지 크기는 최대 256KB다([`std/cloud/sqs.md`](sqs.md)와 같은
+- 메시지 크기는 최대 256KB다([`std/cloud/aws/sqs.md`](sqs.md)와 같은
   실제 제약).
 
 # Examples
