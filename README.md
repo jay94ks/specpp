@@ -21,8 +21,12 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 ## 구성
 
 - [`SPEC.md`](SPEC.md) — SPP 언어 정의서. 문법, 섹션 구조, 표기법, 그리고 **AI 트랜스파일 지침**을 담고 있습니다.
-  이 저장소에서 가장 중요한 문서입니다.
-- [`examples/`](examples/) — SPP로 작성된 예제 명세 파일들.
+  이 저장소에서 가장 중요한 문서입니다. `std/`와 그 내용물 외의 경로(예제, 테스트 등)는
+  의도적으로 언급하지 않습니다 — 예제 패키지가 바뀌어도 언어 정의 자체는 흔들리지 않게
+  하기 위해서입니다.
+- [`CLAUDE.md`](CLAUDE.md) — 이 저장소에서 AI가 작업할 때 지키는 관례(패키지 구조,
+  수정 후 검증 절차, 커밋 규칙 등).
+- [`examples/`](examples/) — SPP로 작성된 예제 명세 파일들. 아래 [예제](#예제) 참고.
 - [`std/`](std/) — 표준 라이브러리. 아래 [표준 라이브러리](#표준-라이브러리) 참고.
 - [`tests/`](tests/) — SPEC.md·std가 실제로 트랜스파일 가능한지 Python·C++
   참조 구현으로 검증하는 테스트.
@@ -33,6 +37,31 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 2. 대상 `.md` 파일을 읽는다.
 3. `SPEC.md`의 "AI 트랜스파일 지침"을 따라 실행 가능한 프로그램으로 번역한다.
 4. `.md` 파일의 `Examples` 섹션이 실제로 통과하는지 검증한다.
+
+## 예제
+
+- [`examples/todo-cli.md`](examples/todo-cli.md) — 단일 파일 패키지 형태로 SPEC.md의
+  표기법을 실제로 사용한 전체 예제입니다 (CLI 노출).
+- [`examples/rock-paper-scissors.md`](examples/rock-paper-scissors.md) — `# Interface`의
+  `## GUI`(SPEC.md 3.6절)와 [`std/ui/widgets.md`](std/ui/widgets.md)(버튼 기반 위젯)를
+  쓴 GUI 예제입니다.
+- [`examples/2048.md`](examples/2048.md) — [`std/ui/canvas.md`](std/ui/canvas.md)
+  (직접 그리는 2D 캔버스)와 `kind: native` 실체 명세
+  ([`std/windows/direct2d.md`](std/windows/direct2d.md))를 함께 쓴 GUI 예제입니다.
+- [`examples/notepad.md`](examples/notepad.md) — 메뉴 막대·여러 줄 텍스트 상자·
+  파일 대화 상자([`std/ui/menu.md`](std/ui/menu.md),
+  [`std/ui/textbox.md`](std/ui/textbox.md),
+  [`std/ui/filedialog.md`](std/ui/filedialog.md))를 조합한, 더 큰 규모의
+  GUI 예제입니다.
+- [`examples/doom/`](examples/doom/) — id Software DOOM(1993) 엔진을 원본
+  구조에 충실하게 옮긴 다중 파일 패키지 예제입니다(SPEC.md 1절의 `package.md` +
+  `# Files` 관례를 실제로 쓴 첫 예제). 렌더링은 셰이더·버텍스 버퍼 기반의
+  [`std/graphics/opengl3.md`](std/graphics/opengl3.md) 또는
+  [`std/windows/direct3d11.md`](std/windows/direct3d11.md)로 대상을 고를
+  수 있습니다(더 단순한 레거시 즉시 모드
+  [`std/graphics/opengl.md`](std/graphics/opengl.md)/
+  [`std/windows/direct3d.md`](std/windows/direct3d.md)도 여전히 유효한
+  대안입니다).
 
 ## 표준 라이브러리
 

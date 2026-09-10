@@ -19,9 +19,8 @@ SPP는 프로그래밍 언어가 아닙니다. **"무엇을 만들 것인가"를
   파일 어디에서 무엇을 찾아야 하는지 항상 알 수 있습니다.
 - 모호한 부분이 남는 것은 실패가 아닙니다. SPP는 모호함을 `Open Points` 섹션에 명시적으로
   드러내고, AI가 합리적으로 채우도록 설계되어 있습니다.
-- 메서드/함수의 동작은 **특정 언어의 관용구에 기대지 않고** 기술합니다. C++, C, Python,
-  Java, Rust, JavaScript 등 현존하는 어떤 개발 언어(혹은 그 변형)로 구현하더라도 동일한
-  결과가 재현될 수 있을 만큼 정밀해야 합니다. (3.4절 참조)
+- 메서드/함수의 동작은 **특정 언어의 관용구에 기대지 않고**, 어떤 개발 언어로 구현해도
+  같은 결과가 재현될 만큼 정밀하게 기술합니다 (구체적인 기준은 3.4절 참조).
 
 ---
 
@@ -31,7 +30,7 @@ SPP는 프로그래밍 언어가 아닙니다. **"무엇을 만들 것인가"를
 설명하는 명세 전체를 가리키며, 다음 두 형태 중 하나를 취합니다.
 
 1. **단일 파일 패키지** — `이름.md` 파일 하나가 패키지 전체를 이룹니다. 소규모
-   프로그램에 적합합니다. 지금까지의 `examples/todo-cli.md`가 이 형태입니다.
+   프로그램에 적합합니다.
 2. **다중 파일 패키지** — 폴더 하나가 패키지 전체를 이루며, 그 안에 여러 `.md` 파일이
    나뉘어 존재합니다. 규모가 크거나 섹션별로 파일을 분리하고 싶을 때 사용합니다.
 
@@ -77,15 +76,13 @@ SPP는 프로그래밍 언어가 아닙니다. **"무엇을 만들 것인가"를
 구성하는 스펙 조각"만을 위한 목록이고, 자산은 명세가 아니라 명세가
 가리키는 실체이기 때문입니다.
 
-- 관례상 `assets/` 하위 폴더에 둡니다(예: `examples/doom/assets/doom1.wad`).
+- 관례상 `assets/` 하위 폴더에 둡니다.
 - 자산의 출처·라이선스·용도는 패키지의 `# Meta`/`# Intent`에 산문으로
   적습니다 — AI가 재배포 가능 여부를 판단하거나 사용자에게 그대로
   안내할 수 있어야 하기 때문입니다.
 - 자산을 바이트 단위로 정확히 해석하는 방법(포맷)은 여느 `# Domain`
   클래스와 똑같이 명세합니다 — 자산 자체가 스펙이 아니라는 것과, 그
-  자산을 읽는 방법이 스펙에 없어도 된다는 것은 다른 이야기입니다
-  (`examples/doom/wad.md`가 `doom1.wad`를 읽는 정확한 바이트 포맷을
-  규정하는 것이 그 예입니다).
+  자산을 읽는 방법이 스펙에 없어도 된다는 것은 다른 이야기입니다.
 
 ### 1.1 외부 패키지 참조 (Import)
 
@@ -170,7 +167,7 @@ URI나 경로로 지정하면 **어떤 패키지**를 쓸지가 고정되고, �
 (예: `.spp`) 대신 흔히 쓰는 마크다운 확장자 `.md`를 그대로 씁니다 — 아무 에디터나
 뷰어에서도 평범한 문서처럼 보이고 편집할 수 있습니다. 어떤 `.md` 파일이 SPP
 패키지인지는 확장자가 아니라 **2.1절의 `#!specpp` 첫 줄이 있는지**로 구분합니다
-— 그 줄이 없으면 그냥 평범한 마크다운 문서(예: 이 저장소의 `README.md`)입니다.
+— 그 줄이 없으면 그냥 평범한 마크다운 문서입니다.
 
 ### 2.1 버전 선언 (필수, 파일 최상단)
 
@@ -361,7 +358,7 @@ C#의 Attribute처럼, 선언 하나에 부가 메타데이터·제약·힌트�
 
 ```markdown
 [Deterministic]
-## Class: Doom.Game
+## Class: Netcode.Simulation
 ```
 
 - `[Deterministic]` — 이 선언(과 그 안에서 호출되는 모든 것)은 **같은 입력이면
@@ -370,12 +367,11 @@ C#의 Attribute처럼, 선언 하나에 부가 메타데이터·제약·힌트�
   하는 시뮬레이션에 붙입니다. AI는 이 표식이 있으면 부동소수점 대신
   고정소수점 연산을 쓰거나, 최적화 시 컴파일러가 부동소수점 결과를
   플랫폼마다 다르게 만들 수 있는 재결합(reassociation)·다른 반올림 모드를
-  피하는 등, 대상 아키텍처에 따라 결과가 갈릴 수 있는 선택을 하지 않습니다
-  (`examples/doom/netplay.md` 참조).
+  피하는 등, 대상 아키텍처에 따라 결과가 갈릴 수 있는 선택을 하지 않습니다.
 
 ```markdown
 [Endianness(little)]
-## Class: Doom.WadFile
+## Class: Archive.FileIndex
 ```
 
 - `[Endianness(little | big)]` — 이 선언이 다루는 바이트 배열이 특정
@@ -384,7 +380,7 @@ C#의 Attribute처럼, 선언 하나에 부가 메타데이터·제약·힌트�
   없으면 그 선언은 바이트 순서와 무관하거나(예: 이미 파싱된 값만 다룸),
   아직 명시되지 않은 것입니다 — 후자의 경우 AI는 원본 자료(원본 소스,
   참고 문서)에서 실제 바이트 순서를 확인하고, 확인할 수 없으면 4.5절에
-  따라 가정을 명시합니다(`examples/doom/wad.md` 참조).
+  따라 가정을 명시합니다.
 
 ### 3.3 네임스페이스(Namespace) 표기
 
@@ -683,8 +679,7 @@ AI는 타겟 언어·스택의 관용적인 pub-sub 메커니즘(메시지 버�
 
 API의 경우 `## API`에 엔드포인트 표, 라이브러리의 경우 `## Function`에 함수 시그니처
 목록을 사용합니다. GUI로 노출되는 프로그램은 `## GUI`에 위젯([`std/ui/widgets.md`](std/ui/widgets.md)
-등)과 그 위젯이 어떤 `Behavior`의 Feature를 실행하는지 매핑하는 표를 씁니다
-(예: [`examples/rock-paper-scissors.md`](examples/rock-paper-scissors.md) 참고).
+등)과 그 위젯이 어떤 `Behavior`의 Feature를 실행하는지 매핑하는 표를 씁니다.
 형식은 표(table)를 권장하되 목록으로 대체 가능합니다.
 
 ### 3.7 Examples 섹션 표기
@@ -980,7 +975,7 @@ OS를 대상으로 해야 하는데 일부 기능이 특정 OS 전용이라면, 
 생성한 선언 바로 위에 그 출처를 가리키는 주석을 남깁니다.
 
 ```
-// spp-source: examples/todo-cli.md#Behavior.할 일 추가
+// spp-source: my-package.md#Behavior.할 일 추가
 ```
 
 - 형식은 `spp-source: 패키지 경로#섹션.이름`이며, 대상 언어의 주석 문법에 맞게
@@ -1024,8 +1019,8 @@ Method/Feature 안에서 발생하는 모든 예외에 동일하게 적용됩니
 - **정렬(alignment)과 구조체 레이아웃.** GPU 버텍스 버퍼, 네트워크
   패킷, C `struct`로 매핑되는 데이터처럼 **바이트 단위 레이아웃 자체가
   계약의 일부**인 경우, 필드 순서·크기·패딩이 명세와 정확히 일치해야
-  합니다(`std/graphics/opengl3.md`의 `layout` 인자, `examples/doom/wad.md`의
-  레코드 크기 등이 이런 경우입니다). 이런 계약에서는 컴파일러가 구조체에
+  합니다(`std/graphics/opengl3.md`의 `layout` 인자 등이 이런 경우입니다).
+  이런 계약에서는 컴파일러가 구조체에
   자동으로 끼워 넣는 패딩이 결과를 깨뜨릴 수 있다는 점을 AI가 인지해야
   합니다.
 - **포인터 폭(32비트 vs 64비트).** 정수 오버플로/포인터 산술이 명세의
@@ -1055,30 +1050,3 @@ Method/Feature 안에서 발생하는 모든 예외에 동일하게 적용됩니
 - 개별 패키지의 `version` 필드는 그 패키지 자체의 변경 이력을 추적합니다.
 - 이 문서가 0.x인 동안은 실험적 단계로 간주하고, 예제로 검증하며 문법을 조정할 수
   있습니다.
-
----
-
-## 6. 참고 예제
-
-- [`examples/todo-cli.md`](examples/todo-cli.md) — 단일 파일 패키지 형태로 이 문서의
-  표기법을 실제로 사용한 전체 예제입니다 (CLI 노출).
-- [`examples/rock-paper-scissors.md`](examples/rock-paper-scissors.md) — `# Interface`의
-  `## GUI`(3.6절)와 [`std/ui/widgets.md`](std/ui/widgets.md)(버튼 기반 위젯)를
-  쓴 GUI 예제입니다.
-- [`examples/2048.md`](examples/2048.md) — [`std/ui/canvas.md`](std/ui/canvas.md)
-  (직접 그리는 2D 캔버스)와 `kind: native` 실체 명세
-  ([`std/windows/direct2d.md`](std/windows/direct2d.md))를 함께 쓴 GUI 예제입니다.
-- [`examples/notepad.md`](examples/notepad.md) — 메뉴 막대·여러 줄 텍스트 상자·
-  파일 대화 상자([`std/ui/menu.md`](std/ui/menu.md),
-  [`std/ui/textbox.md`](std/ui/textbox.md),
-  [`std/ui/filedialog.md`](std/ui/filedialog.md))를 조합한, 더 큰 규모의
-  GUI 예제입니다.
-- [`examples/doom/`](examples/doom/) — id Software DOOM(1993) 엔진을 원본
-  구조에 충실하게 옮긴 다중 파일 패키지 예제입니다(1절의 `package.md` +
-  `# Files` 관례를 실제로 쓴 첫 예제). 렌더링은 셰이더·버텍스 버퍼 기반의
-  [`std/graphics/opengl3.md`](std/graphics/opengl3.md) 또는
-  [`std/windows/direct3d11.md`](std/windows/direct3d11.md)로 대상을 고를
-  수 있습니다(더 단순한 레거시 즉시 모드
-  [`std/graphics/opengl.md`](std/graphics/opengl.md)/
-  [`std/windows/direct3d.md`](std/windows/direct3d.md)도 여전히 유효한
-  대안입니다).
