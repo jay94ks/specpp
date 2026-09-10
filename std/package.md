@@ -105,12 +105,22 @@
 
 ### 클라우드 서비스 (`cloud/`, `kind: native`, 플랫폼 무관)
 
-실제 존재하는 클라우드 제공자 API를 옮긴 실체 명세들이다 — 1.2절.
+실제 존재하는 클라우드 제공자(AWS 기준) API를 옮긴 실체 명세들이다 —
+1.2절. `iam.md`/`vpc.md`는 다른 항목과 달리 애플리케이션 런타임이
+아니라 배포·인프라 구성 단계에서 주로 쓰인다(각 파일 Intent 참고).
 
 | 경로 | 제공하는 것 |
 |---|---|
 | `std/cloud/s3.md` | 버킷·키 기반 오브젝트 스토리지 (AWS S3) |
 | `std/cloud/cdn.md` | 엣지 캐싱·배포 CDN (AWS CloudFront) |
+| `std/cloud/dynamodb.md` | 키 기반 완전관리형 NoSQL 데이터베이스 (AWS DynamoDB) |
+| `std/cloud/sqs.md` | 완전관리형 메시지 큐 (AWS SQS) |
+| `std/cloud/sns.md` | 팬아웃 Pub/Sub 알림 (AWS SNS) |
+| `std/cloud/lambda.md` | 서버리스 함수 호출·핸들러 계약 (AWS Lambda) |
+| `std/cloud/secretsmanager.md` | 비밀번호·API 키 등 시크릿 저장·조회 (AWS Secrets Manager) |
+| `std/cloud/cloudwatch.md` | 로그 수집·지표 기록/조회 (AWS CloudWatch) |
+| `std/cloud/iam.md` | 접근 권한(역할·정책) 정의 (AWS IAM) |
+| `std/cloud/vpc.md` | 가상 네트워크 격리·보안 그룹 (AWS VPC) |
 
 ### POSIX 공통 (`posix/`, `platform: linux, macos` — 3.10절)
 
