@@ -59,7 +59,8 @@
 
 - 타겟 플랫폼의 관용적인 2D 렌더링 수단(Windows에서는
   [`std/windows/direct2d.md`](../windows/direct2d.md)의 DirectX/Direct2D,
-  Python에서는 tkinter `Canvas`, 웹이면 `<canvas>` 등)에 매핑한다.
+  Python에서는 tkinter `Canvas`, 웹이면 [`std/web/canvas.md`](../web/canvas.md)의
+  `<canvas>`/`CanvasRenderingContext2D`)에 매핑한다.
 - `onRender`는 언제든(창 크기 변경, 다른 창에 가렸다가 다시 보일 때 등) 다시
   호출될 수 있다고 가정하고 항상 `canvas.clear(...)`부터 전체를 다시 그린다
   — 이전 프레임과의 차이만 그리는 최적화는 이 계약이 요구하지 않는다.

@@ -139,6 +139,20 @@
 각 OS 전용 패키지의 `platform` 필드에는 다른 OS를 대상으로 할 때 쓸 수 있는
 대체 구현이 `-> fallback: ...`으로 표시되어 있습니다 (3.10절).
 
+### 웹 전용 (`web/`, `platform: web` — 3.10절)
+
+전통적인 OS가 아니라 브라우저 샌드박스를 대상으로 할 때 씁니다(3.10절의
+`platform: web` 설명 참조) — 나머지는 위 OS 전용 패키지들과 같은 관례를
+따릅니다.
+
+| 경로 | 제공하는 것 |
+|---|---|
+| `std/web/dom.md` | 브라우저 DOM으로 창·버튼 GUI 만들기 + 원시 키보드·마우스 입력 (`kind: native`) |
+| `std/web/canvas.md` | `<canvas>`(2D 컨텍스트)로 직접 그리기 렌더링 (`kind: native`) |
+| `std/web/webgl.md` | WebGL2 셰이더·버텍스 버퍼 기반 렌더링 (`kind: native`) |
+| `std/web/webaudio.md` | Web Audio API 위치 기반 효과음 재생 (`kind: native`) |
+| `std/web/storage.md` | localStorage/IndexedDB 기반 영속 저장 (`kind: native`) |
+
 ### 그래픽스 (`graphics/`, `kind: native`, 플랫폼 무관)
 
 | 경로 | 제공하는 것 |

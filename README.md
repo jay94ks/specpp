@@ -52,6 +52,7 @@ SPP(.md)는 프로그램을 직접 실행하기 위한 언어가 아니라, AI(C
 | [`std/graphics/`](std/graphics/) | OpenGL 렌더링 — 레거시 즉시 모드(1.x)와 셰이더·버텍스 버퍼 기반 현대적 렌더링(3.3+) 둘 다 (`kind: native`, 플랫폼 무관) |
 | [`std/audio/`](std/audio/) | OpenAL 위치 기반 효과음 (`kind: native`, 플랫폼 무관) |
 | [`std/windows/`](std/windows/) · [`std/linux/`](std/linux/) · [`std/macos/`](std/macos/) | OS별 API (레지스트리, Direct3D 9/11, DirectSound, 네이티브 대화 상자 등) |
+| [`std/web/`](std/web/) | 브라우저 API — DOM/Canvas/WebGL2/Web Audio/localStorage·IndexedDB (`platform: web`) |
 | [`std/posix/`](std/posix/) | Linux·macOS 공통(POSIX) API |
 | [`std/native/`](std/native/) | C/C++ 표준 라이브러리 자체에 대한 실체 명세 |
 

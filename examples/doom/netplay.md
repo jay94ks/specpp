@@ -108,10 +108,20 @@ test_required Doom.NetGame {
   주고받는 데는 TCP보다 UDP가 적합하다. 유실된 TicCmd를 어떻게
   복구하는지(재전송, 이전 명령 재사용 등)는 이 파일이 규정하지 않는다
   (아래 Open Points).
+- **`platform: web`에서는 원시 UDP 소켓 자체가 브라우저 샌드박스에
+  없다**(SPEC.md 3.10절) — [`std/net/udp.md`](../../std/net/udp.md)를
+  그대로 쓸 수 없다. 가장 가까운 대안은 WebRTC의
+  `RTCDataChannel`을(순서 보장 없음·재전송 없음으로 설정하면 UDP와
+  비슷하게 동작한다) 쓰는 것이지만, 연결 수립 과정(시그널링 서버로
+  SDP/ICE 후보를 교환하는 것)이 UDP 소켓을 여는 것과는 전혀 다른
+  모양이라 이 저장소는 아직 `std/web/`에 그 바인딩을 두지 않았다(아래
+  Open Points).
 - 이 락스텝 방식이 실제로 결정론적이려면 `game.md`의 시뮬레이션(이동,
   충돌, 전투, 난수 사용 등)이 **모든 참가자의 기기에서 완전히 같은
-  결과**를 내야 한다 — `map.md`/`game.md`의 Constraints에서 이미
-  언급했듯, 부동소수점 대신 16.16 고정소수점(`fixed_t`) 연산을 쓰는
+  결과**를 내야 한다 — 그래서 [`game.md`](game.md#Behavior.Feature:_틱_진행)의
+  `Feature.틱 진행`에 `[Deterministic]`(SPEC.md 3.2절)이 붙어 있다.
+  `map.md`/`game.md`의 Constraints에서 이미 언급했듯, 부동소수점 대신
+  16.16 고정소수점(`fixed_t`) 연산을 쓰는
   것을 강하게 권장하는 이유가 바로 이것이다(타겟 언어·CPU마다 부동소수점
   반올림이 미묘하게 달라지면 몇 분 안에 참가자들의 게임 상태가
   어긋난다). 난수도 원본처럼 미리 정해진 표(`m_random.c`의
@@ -149,3 +159,6 @@ test_required Doom.NetGame {
 - 이 명세의 `isServer` 권위자 모델은 원본의 순수 대등 계층 방식을
   단순화한 것이다 — 진짜 대등 계층으로 구현하고 싶다면
   `Doom.NetGame`을 참가자 수만큼 대칭적으로 두는 형태로 바꾼다.
+- 웹 타겟을 위한 `RTCDataChannel` 기반 `std/web/` 바인딩(과 그 앞에
+  필요한 시그널링 서버 프로토콜)은 아직 이 저장소에 없다 — 지금은
+  위 Constraints에 대안만 적어 뒀다.

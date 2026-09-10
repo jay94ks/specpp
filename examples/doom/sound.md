@@ -79,8 +79,9 @@
 # Constraints
 
 - Windows에서는 [`std/windows/directsound.md`](../../std/windows/directsound.md)로,
-  다른 플랫폼에서는 [`std/audio/openal.md`](../../std/audio/openal.md)로
-  구현한다 — 둘 다 "버퍼 만들기 → 위치 정하기 → 재생"이라는 같은 모양이라
+  다른 네이티브 플랫폼에서는 [`std/audio/openal.md`](../../std/audio/openal.md)로,
+  웹에서는 [`std/web/webaudio.md`](../../std/web/webaudio.md)로 구현한다 —
+  셋 다 "버퍼 만들기 → 위치 정하기 → 재생"이라는 같은 모양이라
   `Doom.SoundSystem` 자체는 어느 쪽을 쓰든 바뀌지 않는다.
 - `updateListenerPosition`은 [`game.md`](game.md)의 `Feature.틱 진행`에서
   매 tic 호출된다.

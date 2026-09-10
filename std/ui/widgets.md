@@ -70,7 +70,9 @@
 # Constraints
 
 - 타겟 언어·플랫폼의 관용적인 GUI 툴킷(Python `tkinter`, C++/C# 등에서는
-  Qt/WinForms/WPF/GTK, JavaScript는 브라우저 DOM 등)에 매핑한다. 콘솔만 있는
+  Qt/WinForms/WPF/GTK, Windows 네이티브는
+  [`std/windows/win32.md`](../windows/win32.md), 웹은
+  [`std/web/dom.md`](../web/dom.md))에 매핑한다. 콘솔만 있는
   환경(GUI 없음)에서는 [`std/windows/messagebox.md`](../windows/messagebox.md)류와
   마찬가지로 쓸 수 없다 — AI는 4.5절에 따라 이 제약을 알린다.
 - `Window.show()`가 호출된 뒤 창이 닫힐 때까지 프로그램이 종료되지 않고

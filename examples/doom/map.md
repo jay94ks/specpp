@@ -148,9 +148,13 @@ test_required Doom.Map.BspNode {
     0 또는 1을 반환한다.
 }
 
+[Endianness(little)]
 ## Class: Doom.Map
 
-한 맵(예: `"E1M1"`) 전체를 담는다.
+한 맵(예: `"E1M1"`) 전체를 담는다. `Load`가 읽는 `THINGS`/`LINEDEFS`/
+`SIDEDEFS`/`VERTEXES`/`SEGS`/`SSECTORS`/`NODES`/`SECTORS` lump 전부
+[`Doom.WadFile`](wad.md)과 같은 리틀 엔디언 정수를 쓴다(원본이 x86
+DOS/리눅스용이었기 때문).
 
 멤버:
 - name: string

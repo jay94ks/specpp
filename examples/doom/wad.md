@@ -11,6 +11,7 @@
 - offset: int — 파일에서 이 lump 데이터가 시작하는 바이트 위치.
 - size: int — 바이트 크기.
 
+[Endianness(little)]
 ## Class: Doom.WadFile
 
 원본의 WAD 로딩(`w_wad.c`의 `W_InitMultipleFiles` 등)에 대응한다. WAD 파일

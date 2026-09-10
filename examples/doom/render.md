@@ -44,9 +44,13 @@ BSP 트리([`Doom.Map.BspNode`](map.md))는 그래도 두 가지로 여전히 �
 
 `Doom.Renderer`가 실제로 화면에 픽셀을 내놓기 위해 기대는 최소 계약이다.
 [`std/graphics/opengl3.md`](../../std/graphics/opengl3.md)의 `GL3`나
-[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)의 `D3D11`이
-이 계약을 만족한다(둘 다 셰이더 컴파일/정적 버텍스·인덱스 버퍼/유니폼
-갱신/인덱스 드로우라는 같은 모양을 갖고 있다 — 아래 Constraints 참조).
+[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)의
+`D3D11`, 웹을 타겟으로 한다면
+[`std/web/webgl.md`](../../std/web/webgl.md)의 `WebGL2`가 이 계약을
+만족한다(셋 다 셰이더 컴파일/정적 버텍스·인덱스 버퍼/유니폼 갱신/인덱스
+드로우라는 같은 모양을 갖고 있다 — `WebGL2`는 사양상 `GL3`의 부분집합
+(OpenGL ES 3.0 = OpenGL 3.3 코어의 부분집합)이라 사실상 같은 메서드
+이름을 그대로 쓴다 — 아래 Constraints 참조).
 
 메서드:
 - compileShader(vertexSource: string, fragmentSource: string) -> int
@@ -207,15 +211,17 @@ test_required Doom.Renderer {
 
 원본은 자체 소프트웨어 렌더러가 전체 화면 버퍼를 채우고 팔레트를 입혀
 한 번에 표시한다. 이 명세는 최종 출력 단계만
-[`std/graphics/opengl3.md`](../../std/graphics/opengl3.md) 또는
-[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)에 맡긴다.
+[`std/graphics/opengl3.md`](../../std/graphics/opengl3.md),
+[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md), 또는
+[`std/web/webgl.md`](../../std/web/webgl.md)(웹 타겟)에 맡긴다.
 
 # Constraints
 
 - `Doom.Renderer.Backend`는 OpenGL로는 `GL3.CompileShader`/
   `GL3.CreateVertexBuffer`+`CreateIndexBuffer`/`GL3.CreateTextureArray`+
-  `GL3.DrawIndexed`/`DrawIndexedInstanced`로, Direct3D로는 `D3D11`의
-  같은 이름 메서드로 구현한다 — 둘 다 "정적 지오메트리를 한 번 올리고
+  `GL3.DrawIndexed`/`DrawIndexedInstanced`로, Direct3D로는 `D3D11`의,
+  웹으로는 [`std/web/webgl.md`](../../std/web/webgl.md)의 `WebGL2`의
+  같은 이름 메서드로 구현한다 — 셋 다 "정적 지오메트리를 한 번 올리고
   유니폼만 갱신해 몇 번의 드로우 콜로 그린다"는 같은 모양이라
   `Doom.Renderer` 자체의 알고리즘(위 Behavior)은 어느 쪽을 쓰든
   바뀌지 않는다.

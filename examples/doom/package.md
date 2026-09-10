@@ -9,8 +9,10 @@
   최대한 가깝게 옮긴 명세. "엔진 프레임워크"가 아니라 **그 게임 자체**를
   목표로 한다.
 - target: 미지정 — AI가 상황에 맞게 제안. 셰이더·버텍스 버퍼 기반의
-  현대적 OpenGL(3.3+) 또는 Direct3D(11) 렌더링을 전제한다 (아래 Intent,
-  `render.md` 참조).
+  현대적 OpenGL(3.3+)/Direct3D(11)/WebGL2 렌더링을 전제한다 (아래
+  Intent, `render.md` 참조). 웹을 타겟으로 고를 경우 멀티플레이
+  네트워킹은 UDP를 그대로 쓸 수 없다는 제약이 있다(`netplay.md`의
+  Constraints 참조).
 
 # Intent
 
@@ -47,10 +49,11 @@
 프레임에는 카메라 유니폼만 갱신해 깊이 버퍼로 앞뒤를 가리는 몇 번의
 드로우 콜로 그린다(원본처럼 CPU가 화면 열마다 그려졌는지 추적할 필요가
 없다 — `render.md` 참조). 최종 출력 단계는
-[`std/graphics/opengl3.md`](../../std/graphics/opengl3.md) 또는
-[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)의
-셰이더·버텍스 버퍼 기반 렌더링에 맡긴다 — 그래서 OpenGL과 DirectX 둘 다
-위에서 그대로 돌아간다. 구현이 짧은 걸 우선한다면 레거시 즉시 모드
+[`std/graphics/opengl3.md`](../../std/graphics/opengl3.md),
+[`std/windows/direct3d11.md`](../../std/windows/direct3d11.md), 또는
+[`std/web/webgl.md`](../../std/web/webgl.md)의 셰이더·버텍스 버퍼 기반
+렌더링에 맡긴다 — 그래서 OpenGL·DirectX·웹 브라우저 셋 다 위에서 그대로
+돌아간다. 구현이 짧은 걸 우선한다면 레거시 즉시 모드
 ([`std/graphics/opengl.md`](../../std/graphics/opengl.md)/
 [`std/windows/direct3d.md`](../../std/windows/direct3d.md))도 여전히
 유효한 선택이다(`render.md`의 Constraints 참조).

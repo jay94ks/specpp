@@ -41,12 +41,19 @@
 
 # Behavior
 
+[Deterministic]
 ## Feature: 틱 진행
 
 설명: `G_Ticker`에 대응한다. 매 1/35초(원본의 고정 시뮬레이션 속도)마다
 정확히 한 번 실행된다 — 렌더링 프레임 속도와는 독립적이다(프레임이 더
 빠르면 같은 화면을 그대로 다시 그리고, 더 느리면 여러 틱을 한 번에
-처리해 따라잡는다).
+처리해 따라잡는다). `[Deterministic]`이 붙은 이유는
+[`netplay.md`](netplay.md)의 락스텝 멀티플레이·데모 재생이 이 절차의
+결과가 모든 참가자·재생 시점에서 완전히 같다는 전제 위에 있기 때문이다
+— 여기서 호출하는 이동·충돌·전투·AI·특수 효과 절차 전부가 이 표식의
+적용 범위에 들어간다(3.2절/4.8절 참조). 렌더링(`render.md`)이나
+HUD/메뉴/자동 지도처럼 화면에만 영향을 주고 시뮬레이션 상태를 바꾸지
+않는 부분은 이 표식의 대상이 아니다.
 
 절차:
 1. `menuStack.stack`이 비어 있지 않으면(메뉴가 열려 있으면) 게임 시뮬레이션은
@@ -258,12 +265,15 @@ test_required Doom.Game {
   `i_system.c`): 이 파일들은 1993년 당시 DOS/리눅스에 대한 저수준
   플랫폼 코드였다 — 이 명세에서는 그 역할을
   [`std/graphics/opengl3.md`](../../std/graphics/opengl3.md)/
-  [`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)(영상),
+  [`std/windows/direct3d11.md`](../../std/windows/direct3d11.md)/
+  [`std/web/webgl.md`](../../std/web/webgl.md)(영상),
   [`std/audio/openal.md`](../../std/audio/openal.md)/
-  [`std/windows/directsound.md`](../../std/windows/directsound.md)(음향),
-  [`std/net/udp.md`](../../std/net/udp.md)(네트워크),
-  [`std/windows/win32.md`](../../std/windows/win32.md)(창·입력)로
-  대체했다.
+  [`std/windows/directsound.md`](../../std/windows/directsound.md)/
+  [`std/web/webaudio.md`](../../std/web/webaudio.md)(음향),
+  [`std/net/udp.md`](../../std/net/udp.md)(네트워크, 웹 타겟은 아래
+  Open Points 참조),
+  [`std/windows/win32.md`](../../std/windows/win32.md)/
+  [`std/web/dom.md`](../../std/web/dom.md)(창·입력)로 대체했다.
 - **아이템·발사체 프레임 타이밍**: `actors.md`에 몬스터 18종·아이템
   전종·몬스터 발사체 전종의 실제 수치(체력·피해·탄약 종류 등)를 모두
   채웠다 — 남은 것은 각 `MobjType`의 `spawnState`~`deathState` 정확한
@@ -271,7 +281,8 @@ test_required Doom.Game {
   Open Points 참조, Zombieman 예제와 같은 방식으로 채우면 된다).
 - **난이도별 차이**(이지/하드모드의 몬스터 배치·데미지·탄약 배율)는
   다루지 않는다.
-- **네트워크 참가자 발견·연결 관리**와 **패킷 유실 보정**은
-  [`netplay.md`](netplay.md)의 Open Points에 정리되어 있다.
+- **네트워크 참가자 발견·연결 관리**와 **패킷 유실 보정**, **웹 타겟에서
+  UDP 대신 무엇을 쓸지**는 [`netplay.md`](netplay.md)의 Open Points에
+  정리되어 있다.
 - **MUS→MIDI 변환의 정확한 바이트 포맷**은 [`sound.md`](sound.md)의
   Open Points에 정리되어 있다.
